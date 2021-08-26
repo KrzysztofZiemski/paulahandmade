@@ -9,8 +9,10 @@ import * as React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
-import Header from "./header"
+import Header from "./Header/Header"
+import CustomThemeProvider from "../styles/theme"
 
+import "../styles/normalize.css"
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -23,7 +25,7 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <CustomThemeProvider>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       <div
         style={{
@@ -43,7 +45,7 @@ const Layout = ({ children }) => {
           <a href="https://www.gatsbyjs.com">Gatsby</a>
         </footer>
       </div>
-    </>
+    </CustomThemeProvider>
   )
 }
 

@@ -10,47 +10,50 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `images`,
+    //     path: `${__dirname}/src/images`,
+    //   },
+    // },
     // {
     //   resolve: `gatsby-source-datocms`,
     //   options: {
     //     apiToken: process.env.API_DATO_CMS,
     //   },
     // },
+
     `gatsby-transformer-sharp`,
-    {
-      resolve: "gatsby-plugin-web-font-loader",
-      options: {
-        google: {
-          families: [`Montserrat`, `Roboto`, `Lato`],
-        },
-      },
-    },
-    {
-      resolve: "gatsby-plugin-web-font-loader",
-      options: {
-        google: {
-          families: [`Montserrat`, `Roboto`, `Lato`],
-        },
-      },
-    },
     `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        stylesProvider: {
+          injectFirst: true,
+        },
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Roboto`,
+          `source sans pro\:300,400,400i,700` // you can also specify font weights and styles
+        ],
+        display: 'swap'
+      }
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Paula handmade`,
+        short_name: `Paula handmade`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/logo-icon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-gatsby-cloud`,
