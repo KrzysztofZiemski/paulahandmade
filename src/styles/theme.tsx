@@ -8,11 +8,9 @@ const theme = createTheme({
       main: "#903A58",
     },
   },
-  typography:{
-    h1:{
-        
-    }
-  }
+  typography: {
+    h1: {},
+  },
 })
 
 const CustomThemeProvider = ({ children }) => {
