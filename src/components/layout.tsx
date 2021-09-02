@@ -1,45 +1,49 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
-import * as React from "react"
+import { InputAdornment, makeStyles, TextField } from "@material-ui/core"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./Header/Header"
-import CustomThemeProvider from "../styles/theme"
-
+import * as React from "react"
+import { useState } from "react"
 import "../styles/normalize.css"
-import { SearchProvider } from "../context/searchContext"
+import CustomTextField from "./fields/CustomTextField"
+import Header from "./Header/Header"
+import LeftNavigation from "./LeftNavigation/LeftNavigation"
+import Providers from "./Providers"
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    minHeight: "100vh",
+    display: "flex",
+    flexDirection: "column",
+  },
+  grow: {
+    flexGrow: 1,
+  },
+}))
 
 const Layout = ({ children }) => {
+  const classes = useStyles()
+  const [menuIsOpen, setMenuIsOpen] = useState(true)
+  const handleToggleMenu = () => setMenuIsOpen(prev => !prev)
+  const closeMenu = () => setMenuIsOpen(false)
+
   return (
-    <SearchProvider>
-      <CustomThemeProvider>
-        <Header />
-        <div
+    <Providers>
+      <div className={classes.root}>
+        <Header onClick={handleToggleMenu} />
+        <div className={classes.grow}>
+          <LeftNavigation open={menuIsOpen} onClose={closeMenu} />
+          <main>{children}</main>
+        </div>
+
+        <footer
           style={{
-            margin: `0 auto`,
-            maxWidth: 960,
-            padding: `0 1.0875rem 1.45rem`,
+            marginTop: `2rem`,
           }}
         >
-          <main>{children}</main>
-          <footer
-            style={{
-              marginTop: `2rem`,
-            }}
-          >
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.com">Gatsby</a>
-          </footer>
-        </div>
-      </CustomThemeProvider>
-    </SearchProvider>
+          © {new Date().getFullYear()}, Built with
+          <a href="https://www.gatsbyjs.com">Gatsby</a>
+        </footer>
+      </div>
+    </Providers>
   )
 }
 

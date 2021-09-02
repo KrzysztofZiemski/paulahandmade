@@ -1,6 +1,11 @@
-import { InputLabel, makeStyles, TextField } from "@material-ui/core"
-import { mergeClasses } from "@material-ui/styles"
+import {
+  InputAdornment,
+  InputLabel,
+  makeStyles,
+  TextField,
+} from "@material-ui/core"
 import React from "react"
+import { ReactElement } from "react"
 
 const useStyles = makeStyles(theme => ({
   field: {
@@ -20,6 +25,8 @@ type CustomTextFieldProps = {
   value: string
   setValue: (v: string) => void
   className?: string
+  placeholder?: string
+  icon?: ReactElement
 }
 const CustomTextField = ({
   label,
@@ -28,6 +35,8 @@ const CustomTextField = ({
   value,
   className,
   setValue,
+  placeholder,
+  icon,
 }: CustomTextFieldProps) => {
   const classes = useStyles()
 
@@ -42,16 +51,20 @@ const CustomTextField = ({
       )}
       <TextField
         className={`${classes.field} ${className || ""}`}
-        style={{ marginTop: 0 }}
-        inputProps={{
-          className: classes.input,
-        }}
-        // className={classes.field}
         value={value}
+        placeholder={placeholder || ""}
         onChange={handleChange}
         variant={variant || "outlined"}
         size="small"
-      ></TextField>
+        InputProps={{
+          endAdornment: icon ? (
+            <InputAdornment position="start">{icon}</InputAdornment>
+          ) : (
+            ""
+          ),
+          className: classes.input,
+        }}
+      />
     </>
   )
 }

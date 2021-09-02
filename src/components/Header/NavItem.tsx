@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Lato",
     fontWeight: 300,
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    [theme.breakpoints.down("md")]: {
+      color: theme.palette.primary.main,
+    },
   },
   active: {
     "&:after": {
@@ -29,6 +32,10 @@ const useStyles = makeStyles(theme => ({
       bottom: 0,
       left: 0,
       backgroundColor: theme.palette.common.white,
+      [theme.breakpoints.down("md")]: {
+        height: 2,
+        backgroundColor: theme.palette.primary.main,
+      },
     },
   },
 }))

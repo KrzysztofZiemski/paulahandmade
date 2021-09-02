@@ -6,6 +6,7 @@
   "author": "Krzysztof Ziemski <k.b.ziemski@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.4",
     "dotenv": "^10.0.0",
     "gatsby": "^3.11.1",
