@@ -1,16 +1,16 @@
-import { routes } from "../../routes";
+import { routes } from "../../utils/routes"
 
 export const navList = [
-    {
-      label: "Nowości",
-      path: routes.root,
-    },
-    {
-      label: "Oferta",
-      path: routes.offer,
-    },
-    {
-      label: "Kalendarz",
-      path: routes.calendar,
-    },
-  ]
+  {
+    label: "Oferta",
+    path: routes.root,
+  },
+  {
+    label: "Kursy",
+    path: routes.courses,
+  },
+  {
+    label: "Kalendarz",
+    path: routes.calendar,
+  },
+]

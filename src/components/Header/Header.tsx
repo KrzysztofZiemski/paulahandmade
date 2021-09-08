@@ -5,16 +5,15 @@ import {
   IconButton,
   List,
   makeStyles,
-  Typography,
 } from "@material-ui/core"
+import MenuIcon from "@material-ui/icons/Menu"
+import Logo from "../Logo/Logo"
+
 import React, { useContext } from "react"
 import { SearchContext } from "../../context/searchContext"
-import CustomTextField from "../fields/CustomTextField"
+import SearchInput from "../fields/SearchInput"
 import NavItem from "./NavItem"
 import { navList } from "./navList"
-import MenuIcon from "@material-ui/icons/Menu"
-import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined"
-import SearchInput from "../fields/SearchInput"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     height: 75,
     padding: `0 ${theme.spacing(2)}px`,
     backgroundColor: theme.palette.primary.main,
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
       height: "auto",
       color: theme.palette.primary.main,
@@ -33,26 +32,32 @@ const useStyles = makeStyles(theme => ({
   },
   iconButton: {
     display: "none",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "block",
     },
   },
   navList: {
     display: "flex",
     justifyContent: "center",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       paddingLeft: theme.spacing(1),
       justifyContent: "flex-end",
     },
   },
+  logo: {
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
+  },
+  firstSection: {},
   secondSection: {
     paddingRight: 20,
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("sm")]: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
       width: "100%",
-      padding: `${theme.spacing(2)}px`,
+      padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
       backgroundColor: theme.palette.primary.main,
     },
   },
@@ -64,8 +69,8 @@ const Header = ({ onClick }: { onClick: () => void }) => {
 
   return (
     <AppBar className={classes.root} position="static">
-      <Grid container alignItems="center">
-        <Typography variant="h6">Paula Handmade</Typography>
+      <Grid container alignItems="center" className={classes.firstSection}>
+        <Logo className={classes.logo} />
         <Box component={"nav"} flexGrow="1">
           <List className={classes.navList}>
             {navList.map(el => (

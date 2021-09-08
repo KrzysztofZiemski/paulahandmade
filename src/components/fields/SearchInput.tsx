@@ -4,7 +4,7 @@ import CustomTextField from "./CustomTextField"
 
 interface SearchInputProps {
   value: string
-  setValue: () => void
+  setValue: (e:string) => void
   [x: string]: any
 }
 

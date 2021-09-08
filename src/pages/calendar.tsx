@@ -5,7 +5,7 @@ import * as React from "react"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import { routes } from "../routes"
+import { routes } from "../utils/routes"
 
 const IndexPage = () => (
   <Layout>

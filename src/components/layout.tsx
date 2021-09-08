@@ -19,9 +19,9 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const classes = useStyles()
-  const [menuIsOpen, setMenuIsOpen] = useState(true)
+  const [menuIsOpen, setMenuIsOpen] = useState(false)
   const handleToggleMenu = () => setMenuIsOpen(prev => !prev)
   const closeMenu = () => setMenuIsOpen(false)
 

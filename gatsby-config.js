@@ -10,13 +10,13 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     name: `images`,
-    //     path: `${__dirname}/src/images`,
-    //   },
-    // },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`,
+      },
+    },
     // {
     //   resolve: `gatsby-source-datocms`,
     //   options: {
@@ -37,12 +37,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          `Roboto\:300,400,700`,
-          `Lato\:300,400,700`,
-        ],
-        display: 'swap'
-      }
+        fonts: [`Roboto\:300,400,700`, `Lato\:300,400,700`],
+        display: "swap",
+      },
     },
     {
       resolve: `gatsby-plugin-manifest`,

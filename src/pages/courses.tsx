@@ -7,8 +7,8 @@ import Seo from "../components/seo"
 
 const IndexPage = () => (
   <Layout>
-    <Seo title="Oferta" />
-    oferta
+    <Seo title="Kursy" />
+    kursy
   </Layout>
 )
 
