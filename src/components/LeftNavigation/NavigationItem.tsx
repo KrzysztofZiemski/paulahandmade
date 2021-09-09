@@ -12,37 +12,63 @@ import {
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
 import ArrowRightIcon from "@material-ui/icons/ArrowRight"
 import { navigate } from "gatsby"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { NavigationItemType } from "types/navigationItemType"
 import CustomDivider from "./CustomDivider"
 import useSiteMetadata from "../../hooks/useSiteMetadata"
 import { useLocation } from "@reach/router"
+import { getCategoryParam, subMenuIsOpen } from "./helpers"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
+    "&.MuiListItem-root": {
+      [theme.breakpoints.up("md")]: {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.common.white,
+        border: `1px solid ${theme.palette.primary.main}`,
+      },
+    },
     "&.Mui-selected.MuiListItem-root": {
       color: theme.palette.primary.main,
       backgroundColor: "inherit",
+      [theme.breakpoints.up("md")]: {
+        border: `1px solid ${theme.palette.primary.main}`,
+      },
+    },
+  },
+  subMenuItem: {
+    "&.Mui-selected.MuiListItem-root": {
+      color: theme.palette.primary.main,
+      backgroundColor: "inherit",
+      [theme.breakpoints.up("md")]: {
+        "& span": {
+          fontWeight: 700,
+        },
+      },
+    },
+    "&.MuiListItem-root": {
+      paddingLeft: theme.spacing(4),
+      [theme.breakpoints.up("md")]: {
+        color: theme.palette.primary.main,
+        backgroundColor: theme.palette.common.white,
+      },
+    },
+  },
+  title: {
+    fontWeight: 700,
+    [theme.breakpoints.up("md")]: {
+      fontWeight: 400,
+    },
+  },
+  downIcon: {
+    minWidth: "auto",
+    [theme.breakpoints.up("md")]: {
+      "& svg": {
+        color: "white",
+      },
     },
   },
 }))
-
-const getCategoryParam = (params: string) =>
-  new URLSearchParams(params).get("category")
-
-const startStateIsOpen = ({
-  item,
-  param,
-}: {
-  item: NavigationItemType
-  param: string
-}) => {
-  if (!item.hasSubList) return false
-  const index = item.list.findIndex(el => {
-    return el.filter === param
-  })
-  return index !== -1
-}
 
 interface NavigationItemProps {
   item: NavigationItemType
@@ -52,12 +78,24 @@ interface NavigationItemProps {
 const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
   const classes = useStyles()
   const location = useLocation()
-
-  const categoryParams = getCategoryParam(location.search) || ""
-
   const [isOpen, setIsOpen] = useState(
-    startStateIsOpen({ item, param: categoryParams })
+    typeof window !== `undefined`
+      ? subMenuIsOpen({ item, param: window.location.search })
+      : false
   )
+  const [categoryParams, setCategoryParams] = useState<null | string>(
+    typeof window !== `undefined`
+      ? getCategoryParam(window.location.search)
+      : null
+  )
+
+  useEffect(() => {
+    const categoryParams = getCategoryParam(location.search)
+    setCategoryParams(categoryParams)
+
+    if (!item.hasSubList || isOpen) return
+    setIsOpen(subMenuIsOpen({ item, param: categoryParams }))
+  }, [location.search])
 
   const { label, hasSubList } = item
 
@@ -77,19 +115,14 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
     <>
       <MenuItem
         className={classes.item}
-        button
         selected={!hasSubList && categoryParams === item.filter}
         onClick={hasSubList ? handleOpenSubMenu : () => goTo(item.filter)}
       >
         <ListItemText
-          primary={<Typography style={{ fontWeight: 700 }}>{label}</Typography>}
+          primary={<Typography className={classes.title}>{label}</Typography>}
         />
-        <ListItemIcon>
-          {hasSubList ? (
-            <ArrowDropDownIcon color="primary" />
-          ) : (
-            <ArrowRightIcon color="primary" />
-          )}
+        <ListItemIcon className={classes.downIcon}>
+          {hasSubList && <ArrowDropDownIcon color="primary" />}
         </ListItemIcon>
       </MenuItem>
       {hasSubList && (
@@ -97,11 +130,10 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
           <List component="div" disablePadding>
             {item.list.map(el => (
               <ListItem
-                className={classes.item}
+                className={classes.subMenuItem}
                 key={el.filter}
                 button
                 selected={categoryParams === el.filter}
-                style={{ paddingLeft: "1rem" }}
                 onClick={() => goTo(el.filter)}
               >
                 <ListItemText primary={el.filter} />
@@ -110,23 +142,9 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
           </List>
         </Collapse>
       )}
-
       <CustomDivider />
     </>
   )
 }
-//https://material-ui.com/components/lists/#nested-list
-export default NavigationItem
 
-{
-  /* <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Starred" />
-          </ListItem>
-        </List>
-      </Collapse> */
-}
+export default NavigationItem

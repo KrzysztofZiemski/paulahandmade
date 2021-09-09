@@ -8,6 +8,9 @@ import {
   Box,
   IconButton,
   Drawer,
+  Menu,
+  MenuItem,
+  Paper,
 } from "@material-ui/core"
 import React from "react"
 import NavigationItem from "./NavigationItem"
@@ -16,7 +19,6 @@ import CloseIcon from "@material-ui/icons/Close"
 
 const useStyles = makeStyles(theme => ({
   container: {
-    // height: "90vh",
     paddingTop: theme.spacing(1),
   },
   titleContainer: {
@@ -31,9 +33,21 @@ const useStyles = makeStyles(theme => ({
   icon: {
     color: theme.palette.common.black,
   },
-  paper: {
+  paperMobile: {
     height: "calc(100% - 158px)",
     top: "158px",
+  },
+  desktopMenuPaper: {
+    height: "100%",
+    width: 200,
+    paddingTop: theme.spacing(1),
+  },
+  desktopMenuList: {
+    [theme.breakpoints.up("md")]: {
+      position: "sticky",
+      top: 0,
+      paddingTop: 0,
+    },
   },
 }))
 
@@ -51,7 +65,7 @@ const LeftNavigation = ({
       <Hidden mdUp implementation="css">
         <Drawer
           BackdropProps={{ invisible: true }}
-          classes={{ paper: classes.paper }}
+          classes={{ paper: classes.paperMobile }}
           anchor={"bottom"}
           open={open}
           onClose={onClose}
@@ -74,19 +88,16 @@ const LeftNavigation = ({
           </Box>
         </Drawer>
       </Hidden>
-      <Hidden mdDown implementation="css">
-        DESKTOP
+      <Hidden smDown implementation="css">
+        <Paper className={classes.desktopMenuPaper}>
+          <MenuList className={classes.desktopMenuList}>
+            {navigationList.map(el => (
+              <NavigationItem key={el.label} item={el} onClose={onClose} />
+            ))}
+          </MenuList>
+        </Paper>
       </Hidden>
     </>
-    // <Divider />
-    // <SwipeableDrawer
-    //   anchor={"bottom"}
-    //   open={open}
-    //   onClose={() => {}}
-    //   onOpen={() => {}}
-    // >
-    //   <div> sasdasdasdadasdasdsds</div>
-    // </SwipeableDrawer>
   )
 }
 

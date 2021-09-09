@@ -4,6 +4,7 @@ import * as React from "react"
 import { useState } from "react"
 import "../styles/normalize.css"
 import CustomTextField from "./fields/CustomTextField"
+import Footer from "./Footer/Footer"
 import Header from "./Header/Header"
 import LeftNavigation from "./LeftNavigation/LeftNavigation"
 import Providers from "./Providers"
@@ -14,9 +15,12 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
   },
-  grow: {
+  mainWithNav: {
+    display: "flex",
     flexGrow: 1,
+    minHeight: "200vh",
   },
+  main: {},
 }))
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -29,19 +33,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <Providers>
       <div className={classes.root}>
         <Header onClick={handleToggleMenu} />
-        <div className={classes.grow}>
+        <div className={classes.mainWithNav}>
           <LeftNavigation open={menuIsOpen} onClose={closeMenu} />
-          <main>{children}</main>
+          <main className={classes.main}>{children}</main>
         </div>
 
-        <footer
-          style={{
-            marginTop: `2rem`,
-          }}
-        >
-          © {new Date().getFullYear()}, Built with
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
+        <Footer />
       </div>
     </Providers>
   )
