@@ -18,7 +18,6 @@ const useStyles = makeStyles(theme => ({
   mainWithNav: {
     display: "flex",
     flexGrow: 1,
-    minHeight: "200vh",
   },
   main: {},
 }))
