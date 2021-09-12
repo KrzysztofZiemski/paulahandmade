@@ -1,6 +1,9 @@
 // require("dotenv").config()
 
 module.exports = {
+  flags: {
+    DEV_SSR: false,
+  },
   siteMetadata: {
     title: ``,
     description: ``,

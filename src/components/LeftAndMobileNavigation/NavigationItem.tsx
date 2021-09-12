@@ -100,8 +100,6 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
   const handleOpenSubMenu = () => setIsOpen(prev => !prev)
 
   const goTo = (query: string) => {
-    // location.pathname ==="\"
-
     if (query === "") {
       navigate(`/`)
     } else {

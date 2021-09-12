@@ -1,3 +1,4 @@
+import ProductItem from "../components/ProductItem/ProductItem"
 import { graphql } from "gatsby"
 import * as React from "react"
 // import { Link } from "gatsby"
@@ -10,7 +11,7 @@ import { routes } from "../utils/routes"
 const IndexPage = () => (
   <Layout>
     <Seo title="Nowości" />
-    nowości
+    <ProductItem />
   </Layout>
 )
 
