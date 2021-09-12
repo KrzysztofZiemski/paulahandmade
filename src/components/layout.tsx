@@ -6,7 +6,7 @@ import "../styles/normalize.css"
 import CustomTextField from "./fields/CustomTextField"
 import Footer from "./Footer/Footer"
 import Header from "./Header/Header"
-import LeftNavigation from "./LeftNavigation/LeftNavigation"
+import LeftAndMobileNavigation from "./LeftAndMobileNavigation/LeftAndMobileNavigation"
 import Providers from "./Providers"
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +34,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <div className={classes.root}>
         <Header onClick={handleToggleMenu} />
         <div className={classes.mainWithNav}>
-          <LeftNavigation open={menuIsOpen} onClose={closeMenu} />
+          <LeftAndMobileNavigation open={menuIsOpen} onClose={closeMenu} />
           <main className={classes.main}>{children}</main>
         </div>
 

@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const LeftNavigation = ({
+const LeftAndMobileNavigation = ({
   open,
   onClose,
 }: {
@@ -101,4 +101,4 @@ const LeftNavigation = ({
   )
 }
 
-export default LeftNavigation
+export default LeftAndMobileNavigation
