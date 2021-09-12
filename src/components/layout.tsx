@@ -3,10 +3,10 @@ import PropTypes from "prop-types"
 import * as React from "react"
 import { useState } from "react"
 import "../styles/normalize.css"
-import CustomTextField from "./fields/CustomTextField"
 import Footer from "./Footer/Footer"
 import Header from "./Header/Header"
 import LeftAndMobileNavigation from "./LeftAndMobileNavigation/LeftAndMobileNavigation"
+import MainContainer from "../components/MainContainer/MainContainer"
 import Providers from "./Providers"
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexGrow: 1,
   },
-  main: {},
 }))
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -34,9 +33,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Header onClick={handleToggleMenu} />
         <div className={classes.mainWithNav}>
           <LeftAndMobileNavigation open={menuIsOpen} onClose={closeMenu} />
-          <main className={classes.main}>{children}</main>
+          <MainContainer>{children}</MainContainer>
         </div>
-
         <Footer />
       </div>
     </Providers>

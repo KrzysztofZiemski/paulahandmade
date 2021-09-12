@@ -10,13 +10,11 @@ import {
   Typography,
 } from "@material-ui/core"
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
-import ArrowRightIcon from "@material-ui/icons/ArrowRight"
+import { useLocation } from "@reach/router"
 import { navigate } from "gatsby"
 import React, { useEffect, useState } from "react"
 import { NavigationItemType } from "types/navigationItemType"
 import CustomDivider from "./CustomDivider"
-import useSiteMetadata from "../../hooks/useSiteMetadata"
-import { useLocation } from "@reach/router"
 import { getCategoryParam, subMenuIsOpen } from "./helpers"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -102,10 +100,14 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
   const handleOpenSubMenu = () => setIsOpen(prev => !prev)
 
   const goTo = (query: string) => {
+    // location.pathname ==="\"
+
     if (query === "") {
       navigate(`/`)
     } else {
-      navigate(`?category=${query}`)
+      location.pathname === "/"
+        ? navigate(`?category=${query}`)
+        : navigate(`/?category=${query}`)
     }
 
     onClose()
