@@ -1,4 +1,4 @@
-// require("dotenv").config()
+require("dotenv").config()
 
 module.exports = {
   flags: {
@@ -14,19 +14,18 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
+      resolve: `gatsby-source-datocms`,
+      options: {
+        apiToken: process.env.API_DATO_CMS,
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
       },
     },
-    // {
-    //   resolve: `gatsby-source-datocms`,
-    //   options: {
-    //     apiToken: process.env.API_DATO_CMS,
-    //   },
-    // },
-
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
