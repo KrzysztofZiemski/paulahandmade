@@ -4,32 +4,43 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Collapse,
-  IconButton,
   Link,
   makeStyles,
-  Paper,
   Theme,
   Typography,
 } from "@material-ui/core"
-import React from "react"
-import FavoriteIcon from "@material-ui/icons/Favorite"
 import { Link as GatsbyLink } from "gatsby"
+import GatsbyImage from "gatsby-image"
+import Img from "gatsby-image"
+import React from "react"
+import { Content } from "../../types/datoCmsProduct"
+import { Tag } from "../../types/Tag"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    display: "flex",
+    flexDirection: "column",
     width: "100%",
-    maxWidth: 400,
+    height: "100%",
+    overflow: "auto",
   },
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
     backgroundColor: "red",
+    order: -1,
   },
   actions: {
     justifyContent: "flex-end",
+    marginTop: "auto",
     "& a": {
       color: theme.palette.primary.main,
+      "&::active": {
+        color: theme.palette.primary.main,
+      },
+      "&:link": {
+        textDecoration: "none",
+      },
     },
   },
   header: {
@@ -37,16 +48,69 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: theme.palette.primary.main,
     },
   },
+  cardContent: {
+    // flexGrow: 1,
+  },
+  tag: {
+    position: "relative",
+    paddingRight: 10,
+    paddingLeft: 10,
+    "&:first-child": {
+      paddingLeft: 0,
+    },
+    "&::after": {
+      content: '""',
+      display: "block",
+      position: "absolute",
+      height: "100%",
+      width: 1,
+      top: 0,
+      right: 0,
+      backgroundColor: theme.palette.primary.main,
+    },
+    "&:last-child": {
+      "&::after": {
+        display: "none",
+      },
+    },
+  },
 }))
 
-interface ProductItemProps {}
+interface ProductItemProps {
+  title: string
+  fluidImage: GatsbyImage
+  imageAlt: string
+  link: string
+  tags: Tag[]
+  description: Content[]
+}
 
-const ProductItem = ({}: ProductItemProps) => {
+const ProductItem = ({
+  title,
+  fluidImage,
+  imageAlt,
+  link,
+  description,
+  tags,
+}: ProductItemProps) => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
 
+  const subheader = tags.map(tag => (
+    <span className={classes.tag} key={tag.id}>
+      {tag.tag}
+    </span>
+  ))
   return (
     <Card className={classes.root}>
+      <Img
+        // @ts-ignore
+        fluid={fluidImage}
+        style={{ height: 300 }}
+        // objectFit="cover"
+        // objectPosition="50% 50%"
+        alt=""
+      />
       <CardHeader
         className={classes.header}
         // avatar={
@@ -59,18 +123,12 @@ const ProductItem = ({}: ProductItemProps) => {
         //     <MoreVertIcon />
         //   </IconButton>
         // }
-        title="Poziomkowa przyjemność"
-        subheader="szydełko | placki | katarakta"
+        title={title}
+        subheader={subheader}
       />
-      <CardMedia
-        className={classes.media}
-
-        // image="https://www.facebook.com/photo.php?fbid=4889475684414756&set=p.4889475684414756&type=3"
-        // title="Paella dish"
-      />
-
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        {/* <HTMLProductContent html={content} /> */}
+        {/* <Typography variant="body2" color="textSecondary" component="p">
           Tuzinowe kolczyki koralikowe o różnych odcieniach i barwach świetnie
           sprawdzają się jako ozdoba uszu
         </Typography>
@@ -81,10 +139,10 @@ const ProductItem = ({}: ProductItemProps) => {
         <Typography variant="body2" color="textSecondary" component="p">
           Tuzinowe kolczyki koralikowe o różnych odcieniach i barwach świetnie
           sprawdzają się jako ozdoba uszu
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions disableSpacing className={classes.actions}>
-        <Link component={GatsbyLink} to="#">
+        <Link component={GatsbyLink} to={link}>
           Zobacz
         </Link>
       </CardActions>

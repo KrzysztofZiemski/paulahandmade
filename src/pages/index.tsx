@@ -1,53 +1,60 @@
 import ProductItem from "../components/ProductItem/ProductItem"
 import { graphql } from "gatsby"
-import * as React from "react"
-// import { Link } from "gatsby"
-// import { StaticImage } from "gatsby-plugin-image"
-
+import React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import { routes } from "../utils/routes"
 import { List, ListItem, makeStyles, Theme } from "@material-ui/core"
-import { Product } from "interfaces/Product"
+import { DatoCmsProduct } from "../types/datoCmsProduct"
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {
     justifyContent: "center",
+    alignItems: "flex-start",
     display: "flex",
     flexWrap: "wrap",
+  },
+  listItem: {
+    width: "100%",
+    paddingLeft: 10,
+    paddingRight: 10,
+    [theme.breakpoints.up("sm")]: {
+      width: "50%",
+      height: 500,
+    },
   },
 }))
 
 interface IndexPageProps {
   data: {
     allDatoCmsProduct: {
-      nodes: Product[]
+      nodes: DatoCmsProduct[]
     }
   }
 }
 
 const IndexPage = ({ data }: any) => {
   const { allDatoCmsProduct } = data
-  console.log("allDatoCmsProduct", allDatoCmsProduct)
-  const classes = useStyles()
+  const nodes = allDatoCmsProduct.nodes
 
+  const classes = useStyles()
   return (
     <Layout>
       <Seo title="Produkty" />
       <List className={classes.list}>
-        <ListItem style={{ width: "auto" }}>
-          {" "}
-          <ProductItem />{" "}
-        </ListItem>
-
-        <ListItem style={{ width: "auto" }}>
-          {" "}
-          <ProductItem />{" "}
-        </ListItem>
-        <ListItem style={{ width: "auto" }}>
-          {" "}
-          <ProductItem />{" "}
-        </ListItem>
+        {nodes.map(
+          ({ name, photos, tags, description, id }: DatoCmsProduct) => (
+            <ListItem className={classes.listItem} key={id}>
+              <ProductItem
+                link={"#"}
+                title={name}
+                tags={tags}
+                fluidImage={photos[0].fluid}
+                imageAlt={photos[0].alt}
+                description={description}
+              />{" "}
+            </ListItem>
+          )
+        )}
       </List>
     </Layout>
   )
@@ -59,14 +66,32 @@ export const query = graphql`
       nodes {
         id
         category
-        description
         name
         price
         photos {
           alt
-          url
+          fluid(maxWidth: 400) {
+            ...GatsbyDatoCmsFluid_tracedSVG
+          }
         }
-        tags
+        tags {
+          id
+          tag
+        }
+        description {
+          ... on DatoCmsTextParagraph {
+            model {
+              apiKey
+            }
+            text
+          }
+          ... on DatoCmsTextSubheader {
+            model {
+              apiKey
+            }
+            text
+          }
+        }
       }
     }
   }

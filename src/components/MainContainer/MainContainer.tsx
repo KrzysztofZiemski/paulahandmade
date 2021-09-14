@@ -3,7 +3,8 @@ import { Grid, makeStyles, Theme } from "@material-ui/core"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
+    width: "100%",
   },
 }))
 
