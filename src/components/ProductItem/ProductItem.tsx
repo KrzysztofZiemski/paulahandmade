@@ -2,19 +2,19 @@ import {
   Card,
   CardActions,
   CardContent,
-  CardHeader,
-  CardMedia,
+  Grid,
   Link,
   makeStyles,
   Theme,
   Typography,
 } from "@material-ui/core"
 import { Link as GatsbyLink } from "gatsby"
-import GatsbyImage from "gatsby-image"
+import GatsbyImage, { FluidObject } from "gatsby-image"
 import Img from "gatsby-image"
 import React from "react"
 import { Content } from "../../types/datoCmsProduct"
-import { Tag } from "../../types/Tag"
+import { Tag } from "../../types/tag"
+import { DanoCmsContentModular } from "../../types/danoCmsContentModular"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -23,12 +23,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: "100%",
     height: "100%",
     overflow: "auto",
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-    backgroundColor: "red",
-    order: -1,
   },
   actions: {
     justifyContent: "flex-end",
@@ -44,13 +38,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   header: {
-    "& .MuiCardHeader-subheader": {
-      color: theme.palette.primary.main,
-    },
+    display: "flex",
+    justifyContent: "space-between",
+    padding: theme.spacing(2),
   },
-  cardContent: {
-    // flexGrow: 1,
+  title: {
+    fontWeight: 700,
+    textTransform: "capitalize",
+    fontSize: 20,
+    marginBottom: 4,
   },
+  subHeader: {
+    color: theme.palette.primary.main,
+    fontSize: 16,
+    marginTop: 5,
+  },
+  cardContent: {},
   tag: {
     position: "relative",
     paddingRight: 10,
@@ -74,15 +77,21 @@ const useStyles = makeStyles((theme: Theme) => ({
       },
     },
   },
+  img: {
+    maxWidth: "100%",
+    maxHeight: 200,
+  },
+  content: {},
 }))
 
 interface ProductItemProps {
   title: string
-  fluidImage: GatsbyImage
+  fluidImage: FluidObject
   imageAlt: string
   link: string
   tags: Tag[]
-  description: Content[]
+  description: Content[] | string
+  price: number
 }
 
 const ProductItem = ({
@@ -92,6 +101,7 @@ const ProductItem = ({
   link,
   description,
   tags,
+  price,
 }: ProductItemProps) => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
@@ -101,56 +111,48 @@ const ProductItem = ({
       {tag.tag}
     </span>
   ))
+
   return (
     <Card className={classes.root}>
-      <Img
-        // @ts-ignore
-        fluid={fluidImage}
-        style={{ height: 300 }}
-        // objectFit="cover"
-        // objectPosition="50% 50%"
-        alt=""
-      />
-      <CardHeader
-        className={classes.header}
-        // avatar={
-        //   <Avatar aria-label="recipe" className={classes.avatar}>
-        //     R
-        //   </Avatar>
-        // }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
-        title={title}
-        subheader={subheader}
-      />
-      <CardContent>
-        {/* <HTMLProductContent html={content} /> */}
-        {/* <Typography variant="body2" color="textSecondary" component="p">
-          Tuzinowe kolczyki koralikowe o różnych odcieniach i barwach świetnie
-          sprawdzają się jako ozdoba uszu
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Tuzinowe kolczyki koralikowe o różnych odcieniach i barwach świetnie
-          sprawdzają się jako ozdoba uszu
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Tuzinowe kolczyki koralikowe o różnych odcieniach i barwach świetnie
-          sprawdzają się jako ozdoba uszu
-        </Typography> */}
+      <Link component={GatsbyLink} to={link}>
+        <Img fluid={fluidImage} className={classes.img} alt={imageAlt} />
+      </Link>
+      <Grid className={classes.header}>
+        <Grid>
+          <Grid className={classes.title}>{title}</Grid>
+          <Grid className={classes.subHeader}>{subheader}</Grid>
+        </Grid>
+        <Grid>{`${price} zł`}</Grid>
+      </Grid>
+      <CardContent className={classes.content}>
+        {typeof description === "string" ? (
+          <Typography component="p">{description}</Typography>
+        ) : (
+          description.map((el, index) => {
+            switch (el.model.apiKey) {
+              case DanoCmsContentModular.text_paragraph:
+                return (
+                  <Typography key={index} component="p">
+                    {el.text}
+                  </Typography>
+                )
+              case DanoCmsContentModular.text_subheader:
+                return (
+                  <Typography key={index} component="h2">
+                    {el.text}
+                  </Typography>
+                )
+              default:
+                null
+            }
+          })
+        )}
       </CardContent>
       <CardActions disableSpacing className={classes.actions}>
         <Link component={GatsbyLink} to={link}>
           Zobacz
         </Link>
       </CardActions>
-      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph></Typography>         
-        </CardContent>
-      </Collapse> */}
     </Card>
   )
 }

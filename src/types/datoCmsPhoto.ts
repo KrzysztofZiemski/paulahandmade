@@ -1,6 +1,6 @@
-import GatsbyImage from "gatsby-image"
+import GatsbyImage, { FluidObject } from "gatsby-image"
 
 export interface DatoCmsPhoto {
   alt: string
-  fluid: GatsbyImage
+  fluid: FluidObject
 }

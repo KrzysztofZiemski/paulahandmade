@@ -12,13 +12,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: "flex-start",
     display: "flex",
     flexWrap: "wrap",
+    [theme.breakpoints.up("md")]: {
+      justifyContent: "space-evenly",
+    },
   },
   listItem: {
     width: "100%",
+    maxWidth: 450,
     paddingLeft: 10,
     paddingRight: 10,
+
     [theme.breakpoints.up("sm")]: {
       width: "50%",
+      height: 450,
+    },
+    [theme.breakpoints.up("md")]: {
+      width: "30%",
       height: 500,
     },
   },
@@ -42,9 +51,11 @@ const IndexPage = ({ data }: any) => {
       <Seo title="Produkty" />
       <List className={classes.list}>
         {nodes.map(
-          ({ name, photos, tags, description, id }: DatoCmsProduct) => (
+          ({ name, photos, tags, description, id, price }: DatoCmsProduct) => (
             <ListItem className={classes.listItem} key={id}>
+              {console.log(tags)}
               <ProductItem
+                price={price}
                 link={"#"}
                 title={name}
                 tags={tags}
@@ -78,6 +89,7 @@ export const query = graphql`
           id
           tag
         }
+        shortDescription
         description {
           ... on DatoCmsTextParagraph {
             model {

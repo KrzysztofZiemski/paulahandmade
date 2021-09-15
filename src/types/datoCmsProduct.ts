@@ -1,6 +1,6 @@
 import { DanoCmsContentModular } from "./danoCmsContentModular"
 import { DatoCmsPhoto } from "./datoCmsPhoto"
-import { Tag } from "./Tag"
+import { Tag } from "./tag"
 
 export type Content = {
   model: {
@@ -17,4 +17,5 @@ export interface DatoCmsProduct {
   photos: DatoCmsPhoto[]
   description: Content[]
   tags: Tag[]
+  shortDescription: string
 }
