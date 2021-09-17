@@ -4,7 +4,8 @@ import React, { useContext } from "react"
 import { DatoCmsProduct } from "../../types/datoCmsProduct"
 import { Tag } from "../../types/tag"
 import ProductItem from "./ProductItem/ProductItem"
-import { Filter } from "./helpers"
+import { Filter } from "../../helpers/Filter"
+import { getSlugify } from "../../helpers/getSlugify"
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {
@@ -59,13 +60,13 @@ const ProductsList = ({ list }: { list: DatoCmsProduct[] }) => {
             {console.log(tags)}
             <ProductItem
               price={price}
-              link={"#"}
+              link={`produkt/${getSlugify(name)}`}
               title={name}
               tags={tags}
               fluidImage={photos[0].fluid}
               imageAlt={photos[0].alt}
               description={description}
-            />{" "}
+            />
           </ListItem>
         )
       )}
