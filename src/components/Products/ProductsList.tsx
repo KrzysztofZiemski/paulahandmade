@@ -55,9 +55,15 @@ const ProductsList = ({ list }: { list: DatoCmsProduct[] }) => {
   return (
     <List className={classes.list}>
       {listToRender.map(
-        ({ name, photos, tags, description, id, price }: DatoCmsProduct) => (
+        ({
+          name,
+          photos,
+          tags,
+          shortDescription,
+          id,
+          price,
+        }: DatoCmsProduct) => (
           <ListItem className={classes.listItem} key={id}>
-            {console.log(tags)}
             <ProductItem
               price={price}
               link={`produkt/${getSlugify(name)}`}
@@ -65,7 +71,7 @@ const ProductsList = ({ list }: { list: DatoCmsProduct[] }) => {
               tags={tags}
               fluidImage={photos[0].fluid}
               imageAlt={photos[0].alt}
-              description={description}
+              description={shortDescription}
             />
           </ListItem>
         )

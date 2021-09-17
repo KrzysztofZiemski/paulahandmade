@@ -14,7 +14,7 @@ import Img from "gatsby-image"
 import React from "react"
 import { Content } from "../../../types/datoCmsProduct"
 import { Tag } from "../../../types/tag"
-import { DanoCmsContentModular } from "../../../types/danoCmsContentModular"
+import { DatoCmsContentModular } from "../../../types/datoCmsContentModular"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -135,13 +135,13 @@ const ProductItem = ({
         ) : (
           description.map((el, index) => {
             switch (el.model.apiKey) {
-              case DanoCmsContentModular.text_paragraph:
+              case DatoCmsContentModular.text_paragraph:
                 return (
                   <Typography key={index} component="p">
                     {el.text}
                   </Typography>
                 )
-              case DanoCmsContentModular.text_subheader:
+              case DatoCmsContentModular.text_subheader:
                 return (
                   <Typography key={index} component="h2">
                     {el.text}
