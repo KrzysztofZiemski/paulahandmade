@@ -12,9 +12,9 @@ import { Link as GatsbyLink } from "gatsby"
 import GatsbyImage, { FluidObject } from "gatsby-image"
 import Img from "gatsby-image"
 import React from "react"
-import { Content } from "../../types/datoCmsProduct"
-import { Tag } from "../../types/tag"
-import { DanoCmsContentModular } from "../../types/danoCmsContentModular"
+import { Content } from "../../../types/datoCmsProduct"
+import { Tag } from "../../../types/tag"
+import { DanoCmsContentModular } from "../../../types/danoCmsContentModular"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -43,6 +43,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
   },
   title: {
+    textDecoration: "none",
+    color: theme.palette.common.black,
     fontWeight: 700,
     textTransform: "capitalize",
     fontSize: 20,
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   subHeader: {
     color: theme.palette.primary.main,
     fontSize: 16,
-    marginTop: 5,
+    marginTop: 7,
   },
   cardContent: {},
   tag: {
@@ -119,7 +121,10 @@ const ProductItem = ({
       </Link>
       <Grid className={classes.header}>
         <Grid>
-          <Grid className={classes.title}>{title}</Grid>
+          <Grid component={GatsbyLink} className={classes.title} to={link}>
+            {title}
+          </Grid>
+
           <Grid className={classes.subHeader}>{subheader}</Grid>
         </Grid>
         <Grid>{`${price} zł`}</Grid>

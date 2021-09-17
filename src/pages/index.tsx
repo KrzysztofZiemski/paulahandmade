@@ -1,37 +1,13 @@
-import ProductItem from "../components/ProductItem/ProductItem"
+import ProductItem from "../components/Products/ProductItem/ProductItem"
 import { graphql } from "gatsby"
 import React from "react"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { List, ListItem, makeStyles, Theme } from "@material-ui/core"
 import { DatoCmsProduct } from "../types/datoCmsProduct"
+import ProductsList from "../components/Products/ProductsList"
 
-const useStyles = makeStyles((theme: Theme) => ({
-  list: {
-    justifyContent: "center",
-    alignItems: "flex-start",
-    display: "flex",
-    flexWrap: "wrap",
-    [theme.breakpoints.up("md")]: {
-      justifyContent: "space-evenly",
-    },
-  },
-  listItem: {
-    width: "100%",
-    maxWidth: 450,
-    paddingLeft: 10,
-    paddingRight: 10,
-
-    [theme.breakpoints.up("sm")]: {
-      width: "50%",
-      height: 450,
-    },
-    [theme.breakpoints.up("md")]: {
-      width: "30%",
-      height: 500,
-    },
-  },
-}))
+const useStyles = makeStyles((theme: Theme) => ({}))
 
 interface IndexPageProps {
   data: {
@@ -49,24 +25,7 @@ const IndexPage = ({ data }: any) => {
   return (
     <Layout>
       <Seo title="Produkty" />
-      <List className={classes.list}>
-        {nodes.map(
-          ({ name, photos, tags, description, id, price }: DatoCmsProduct) => (
-            <ListItem className={classes.listItem} key={id}>
-              {console.log(tags)}
-              <ProductItem
-                price={price}
-                link={"#"}
-                title={name}
-                tags={tags}
-                fluidImage={photos[0].fluid}
-                imageAlt={photos[0].alt}
-                description={description}
-              />{" "}
-            </ListItem>
-          )
-        )}
-      </List>
+      <ProductsList list={nodes} />
     </Layout>
   )
 }
