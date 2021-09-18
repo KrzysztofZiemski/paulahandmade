@@ -36,26 +36,35 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
       typeOfContact: TypeOfContact.mail,
     },
     validationSchema: validationSchema,
-    onSubmit: values => {
+    onSubmit: (values, actions) => {
       return fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode(values).toString(),
-      }).then(res => {
-        console.log(res)
-        alert("poszło")
+        body: encode({
+          "form-name": "contact",
+          ...values,
+        }).toString(),
       })
+        .then(res => {
+          console.log(res)
+          actions.resetForm()
+        })
+        .catch(err => console.log(err))
+        .finally(() => actions.setSubmitting(false))
     },
   })
 
   return (
     <form
-      className={`${classes.root} ${className}`}
-      onSubmit={formik.handleSubmit}
-      data-netlify-recaptcha="true"
+      id="contact"
+      name="contact"
+      method="POST"
       data-netlify="true"
+      // data-netlify-recaptcha="true"
+      data-netlify-honeypot="bot-field"
+      onSubmit={formik.handleSubmit}
+      className={`${classes.root} ${className}`}
     >
-      <input type="hidden" name="form-name" value="contact" />
       <CustomTextField
         variant="outlined"
         id="subject"
@@ -115,6 +124,7 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
         error={formik.touched.message && Boolean(formik.errors.message)}
         helperText={formik.touched.message && formik.errors.message}
       />
+      <input type="hidden" name="form-name" value="contact" />
       <Button
         color="primary"
         variant="contained"
@@ -122,9 +132,18 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
         type="submit"
         className={classes.button}
       >
-        Submit
+        Wyślij
       </Button>
     </form>
+    // <form
+    //   action="/thank-you"
+    //   className={`${classes.root} ${className}`}
+    //   onSubmit={formik.handleSubmit}
+    //   data-netlify-recaptcha="true"
+    //   data-netlify="true"
+    //   name="contact"
+    //   method="POST"
+    // >
   )
 }
 
