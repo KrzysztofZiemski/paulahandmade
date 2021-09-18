@@ -41,7 +41,6 @@ const CustomTextField = ({
         </InputLabel>
       )}
       <TextField
-        multiline
         type={type || "text"}
         className={`${classes.field} ${className || ""}`}
         value={value}

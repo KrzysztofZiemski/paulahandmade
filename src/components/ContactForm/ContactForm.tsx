@@ -65,6 +65,12 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
       onSubmit={formik.handleSubmit}
       className={`${classes.root} ${className}`}
     >
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="subject" value="" />
+      <input type="hidden" name="typeOfContact" value="" />
+      <input type="hidden" name="phone" value="" />
+      <input type="hidden" name="email" value="" />
+      <input type="hidden" name="message" value="" />
       <CustomTextField
         variant="outlined"
         id="subject"
@@ -113,6 +119,7 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
       )}
 
       <CustomTextField
+        multiline
         variant="outlined"
         id="message"
         name="message"
@@ -124,7 +131,6 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
         error={formik.touched.message && Boolean(formik.errors.message)}
         helperText={formik.touched.message && formik.errors.message}
       />
-      <input type="hidden" name="form-name" value="contact" />
       <Button
         color="primary"
         variant="contained"
