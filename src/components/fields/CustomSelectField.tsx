@@ -1,15 +1,8 @@
-import {
-  InputAdornment,
-  InputLabel,
-  makeStyles,
-  Select,
-  TextField,
-} from "@material-ui/core"
-import React, { FunctionComponent, ReactElement, ReactNode } from "react"
+import { InputLabel, makeStyles, Select, SelectProps } from "@material-ui/core"
+import React, { FunctionComponent } from "react"
 
 const useStyles = makeStyles(theme => ({
   field: {
-    minWidth: "250px",
     padding: 0,
     margin: theme.spacing(1),
   },
@@ -23,30 +16,16 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-interface CustomSelectFieldProps {
-  label?: string
-  variant?: "filled" | "outlined"
-  name: string
-  value: any
-  setValue: (v: string) => void
-  className?: string
-  icon?: ReactElement
-  children: ReactNode
-}
-
-const CustomSelectField: FunctionComponent<CustomSelectFieldProps> = ({
+const CustomSelectField: FunctionComponent<SelectProps> = ({
   label,
   variant,
   name,
   value,
   className,
-  setValue,
-  icon,
   children,
+  ...other
 }) => {
   const classes = useStyles()
-
-  const handleChange = (e: any) => setValue(e.target.value)
 
   return (
     <>
@@ -58,11 +37,12 @@ const CustomSelectField: FunctionComponent<CustomSelectFieldProps> = ({
       <Select
         className={`${classes.field} ${className || ""}`}
         value={value}
-        onChange={handleChange}
+        name={name}
         variant={variant || "outlined"}
         inputProps={{
           className: classes.input,
         }}
+        {...other}
       >
         {children}
       </Select>
