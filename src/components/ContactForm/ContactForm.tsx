@@ -12,11 +12,17 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginTop: theme.spacing(2),
   },
+  root: {
+    display: "flex",
+    flexDirection: "column",
+  },
 }))
 
-interface ContactFormProps {}
+interface ContactFormProps {
+  className: string
+}
 
-const ContactForm: FunctionComponent<ContactFormProps> = () => {
+const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
   const classes = useStyles()
   const formik = useFormik({
     initialValues: {
@@ -34,8 +40,8 @@ const ContactForm: FunctionComponent<ContactFormProps> = () => {
 
   return (
     <form
+      className={`${classes.root} ${className}`}
       onSubmit={formik.handleSubmit}
-      style={{ display: "flex", flexDirection: "column" }}
     >
       <CustomTextField
         variant="outlined"
