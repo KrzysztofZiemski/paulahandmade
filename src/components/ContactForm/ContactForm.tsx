@@ -8,6 +8,7 @@ import CustomSelectField from "../fields/CustomSelectField"
 
 import { validationSchema } from "./schema"
 import { TypeOfContact } from "../../types/typeOfContact"
+import { encode } from "../../utils/encode"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -25,6 +26,7 @@ interface ContactFormProps {
 
 const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
   const classes = useStyles()
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -35,7 +37,14 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
     },
     validationSchema: validationSchema,
     onSubmit: values => {
-      console.log(values)
+      return fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode(values).toString(),
+      }).then(res => {
+        console.log(res)
+        alert("poszło")
+      })
     },
   })
 
