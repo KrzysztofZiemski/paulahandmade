@@ -42,6 +42,8 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
     <form
       className={`${classes.root} ${className}`}
       onSubmit={formik.handleSubmit}
+      data-netlify-recaptcha="true"
+      data-netlify="true"
     >
       <CustomTextField
         variant="outlined"
@@ -102,7 +104,6 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
         error={formik.touched.message && Boolean(formik.errors.message)}
         helperText={formik.touched.message && formik.errors.message}
       />
-
       <Button
         color="primary"
         variant="contained"
