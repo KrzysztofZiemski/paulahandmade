@@ -55,6 +55,7 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
       data-netlify-recaptcha="true"
       data-netlify="true"
     >
+      <input type="hidden" name="form-name" value="contact" />
       <CustomTextField
         variant="outlined"
         id="subject"
