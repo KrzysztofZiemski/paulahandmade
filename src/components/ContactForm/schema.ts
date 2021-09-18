@@ -1,5 +1,5 @@
 import * as yup from "yup"
-import { TypeOfContact } from '../../types/TypeOfContact'
+import { TypeOfContact } from '../../types/typeOfContact'
 
 const phoneRegExp = /^\d{9}$/
 

@@ -1,5 +1,5 @@
 import { List, ListItem, makeStyles, Theme } from "@material-ui/core"
-import { SearchContext } from "../../context/searchContext"
+import { SearchContext } from "../../context/SearchContext"
 import React, { useContext } from "react"
 import { DatoCmsProduct } from "../../types/datoCmsProduct"
 import { Tag } from "../../types/tag"

@@ -10,7 +10,7 @@ import MenuIcon from "@material-ui/icons/Menu"
 import Logo from "../Logo/Logo"
 
 import React, { useContext } from "react"
-import { SearchContext } from "../../context/searchContext"
+import { SearchContext } from "../../context/SearchContext"
 import SearchInput from "../fields/SearchInput"
 import NavItem from "./NavItem"
 import { navList } from "./navList"

@@ -5,8 +5,9 @@ import * as yup from "yup"
 import React from "react"
 import CustomTextField from "../fields/CustomTextField"
 import CustomSelectField from "../fields/CustomSelectField"
-import { TypeOfContact } from "../../types/TypeOfContact"
+
 import { validationSchema } from "./schema"
+import { TypeOfContact } from "../../types/typeOfContact"
 
 const useStyles = makeStyles(theme => ({
   button: {

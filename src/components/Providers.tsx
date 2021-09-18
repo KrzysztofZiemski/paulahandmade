@@ -1,8 +1,8 @@
 import React from "react"
-import { SearchProvider } from "../context/searchContext"
+import { SearchProvider } from "../context/SearchContext"
 import CustomThemeProvider from "../styles/theme"
 
-const Providers = ({ children }) => {
+const Providers = ({ children }: any) => {
   return (
     <CustomThemeProvider>
       <SearchProvider>{children}</SearchProvider>
