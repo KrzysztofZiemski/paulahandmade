@@ -5,7 +5,8 @@ import { DatoCmsPhoto } from "../../types/datoCmsPhoto"
 
 const useStyles = makeStyles((theme: Theme) => ({
   mainPhoto: {
-    with: "100%",
+    maxWith: "100%",
+    maxHeight: "50vh",
   },
   photosContainer: {
     flexWrap: "wrap",
@@ -22,8 +23,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       maxHeight: 130,
     },
     [theme.breakpoints.up("sm")]: {
-      width: 130,
-      maxHeight: 130,
+      width: 100,
+      maxHeight: 100,
     },
   },
   activeImage: {

@@ -4,8 +4,10 @@ import React, { useState } from "react"
 import { graphql } from "gatsby"
 import { DatoCmsProduct } from "../types/datoCmsProduct"
 import PageName from "../components/PageName.tsx/PageName"
+import { navigate } from "gatsby"
 
 import {
+  Button,
   Grid,
   Hidden,
   IconButton,
@@ -15,11 +17,15 @@ import {
 } from "@material-ui/core"
 import ImagesGallery from "../components/ImagesGallery/ImagesGallery"
 import { DatoCmsContentModular } from "../types/datoCmsContentModular"
+import MainButton from "../components/MainButton/MainButton"
+import { routes } from "../utils/routes"
+import { getSlugify } from "../helpers/getSlugify"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     [theme.breakpoints.up("sm")]: {
       display: "flex",
+      paddingTop: theme.spacing(2),
     },
   },
   galery: {
@@ -33,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: "1rem",
   },
   description: {
-    width: "50%",
+    width: "100%",
     padding: theme.spacing(1),
     "& p": {},
     "& h2": {
@@ -41,11 +47,18 @@ const useStyles = makeStyles((theme: Theme) => ({
       textAlign: "center",
       margin: "1rem 0",
     },
+    [theme.breakpoints.up("sm")]: {
+      width: "50%",
+    },
   },
   smDownHidden: {
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
+  },
+  button: {
+    marginTop: theme.spacing(5),
+    width: "100%",
   },
 }))
 
@@ -58,6 +71,9 @@ const ProductPage = ({ data }: ProductPage) => {
   const classes = useStyles()
   const { name, photos, description, price } = data.datoCmsProduct
 
+  const handleAskAboutProduct = () => {
+    navigate(`${routes.contact}?subject=${getSlugify(name)}`)
+  }
   return (
     <Layout>
       <Seo title={name} />
@@ -89,6 +105,12 @@ const ProductPage = ({ data }: ProductPage) => {
                   return null
               }
             })}
+          <MainButton
+            onClick={handleAskAboutProduct}
+            className={classes.button}
+          >
+            Zapytaj o produkt
+          </MainButton>
         </Grid>
       </Grid>
     </Layout>
