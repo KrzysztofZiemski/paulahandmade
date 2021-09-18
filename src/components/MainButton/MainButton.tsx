@@ -3,8 +3,8 @@ import React, { FunctionComponent } from "react"
 //extends ExtendButtonBase<ButtonTypeMap>
 interface MainButtonProps {
   children: React.ReactNode
-  onClick: () => void
-  className: string
+  onClick?: () => void
+  className?: string
 }
 
 const MainButton: FunctionComponent<MainButtonProps> = ({
@@ -12,7 +12,7 @@ const MainButton: FunctionComponent<MainButtonProps> = ({
   ...other
 }) => {
   return (
-    <Button {...other} variant="contained" color="primary">
+    <Button {...other} variant="contained" color="primary" fullWidth>
       {children}
     </Button>
   )

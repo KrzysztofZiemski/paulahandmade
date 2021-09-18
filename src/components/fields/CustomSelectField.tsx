@@ -2,51 +2,48 @@ import {
   InputAdornment,
   InputLabel,
   makeStyles,
+  Select,
   TextField,
 } from "@material-ui/core"
-import React from "react"
-import { ReactElement } from "react"
+import React, { FunctionComponent, ReactElement, ReactNode } from "react"
 
 const useStyles = makeStyles(theme => ({
   field: {
     minWidth: "250px",
+    padding: 0,
     margin: theme.spacing(1),
-  },
-  label: {
-    marginLeft: theme.spacing(1),
   },
   input: {
     backgroundColor: theme.palette.common.white,
     borderRadius: 5,
+    padding: "10.5px 14px",
+  },
+  label: {
+    marginLeft: theme.spacing(1),
   },
 }))
 
-type CustomTextFieldProps = {
+interface CustomSelectFieldProps {
   label?: string
   variant?: "filled" | "outlined"
   name: string
-  value: string
+  value: any
   setValue: (v: string) => void
   className?: string
-  placeholder?: string
   icon?: ReactElement
-  type?: "number" | "password" | "text"
-  rows?: number
-  multiline?: boolean
+  children: ReactNode
 }
-const CustomTextField = ({
+
+const CustomSelectField: FunctionComponent<CustomSelectFieldProps> = ({
   label,
   variant,
   name,
   value,
   className,
   setValue,
-  placeholder,
   icon,
-  type,
-  rows,
-  multiline = false,
-}: CustomTextFieldProps) => {
+  children,
+}) => {
   const classes = useStyles()
 
   const handleChange = (e: any) => setValue(e.target.value)
@@ -58,27 +55,19 @@ const CustomTextField = ({
           {label}
         </InputLabel>
       )}
-      <TextField
-        multiline
-        rows={rows && rows}
-        type={type || "text"}
+      <Select
         className={`${classes.field} ${className || ""}`}
         value={value}
-        placeholder={placeholder || ""}
         onChange={handleChange}
         variant={variant || "outlined"}
-        size="small"
-        InputProps={{
-          endAdornment: icon ? (
-            <InputAdornment position="start">{icon}</InputAdornment>
-          ) : (
-            ""
-          ),
+        inputProps={{
           className: classes.input,
         }}
-      />
+      >
+        {children}
+      </Select>
     </>
   )
 }
 
-export default CustomTextField
+export default CustomSelectField
