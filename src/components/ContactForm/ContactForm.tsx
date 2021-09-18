@@ -9,6 +9,7 @@ import CustomSelectField from "../fields/CustomSelectField"
 import { validationSchema } from "./schema"
 import { TypeOfContact } from "../../types/typeOfContact"
 import { encode } from "../../utils/encode"
+import Recaptcha from "../../components/fields/Recaptcha"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -33,6 +34,7 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
       phone: "",
       subject: "",
       message: "",
+      "g-recaptcha-response": "",
       typeOfContact: TypeOfContact.mail,
     },
     validationSchema: validationSchema,
@@ -53,6 +55,9 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
         .finally(() => actions.setSubmitting(false))
     },
   })
+  const verifyRecaptcha = (value: any) => {
+    formik.values["g-recaptcha-response"] = value
+  }
 
   return (
     <form
@@ -60,7 +65,7 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
       name="contact"
       method="POST"
       data-netlify="true"
-      // data-netlify-recaptcha="true"
+      data-netlify-recaptcha="true"
       data-netlify-honeypot="bot-field"
       onSubmit={formik.handleSubmit}
       className={`${classes.root} ${className}`}
@@ -131,6 +136,13 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
         error={formik.touched.message && Boolean(formik.errors.message)}
         helperText={formik.touched.message && formik.errors.message}
       />
+      <Recaptcha
+        onChange={verifyRecaptcha}
+        error={
+          formik.touched.message &&
+          Boolean(formik.errors["g-recaptcha-response"])
+        }
+      />
       <Button
         color="primary"
         variant="contained"
@@ -141,15 +153,6 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
         Wyślij
       </Button>
     </form>
-    // <form
-    //   action="/thank-you"
-    //   className={`${classes.root} ${className}`}
-    //   onSubmit={formik.handleSubmit}
-    //   data-netlify-recaptcha="true"
-    //   data-netlify="true"
-    //   name="contact"
-    //   method="POST"
-    // >
   )
 }
 
