@@ -1,11 +1,11 @@
 import { Card, makeStyles, Theme } from "@material-ui/core"
 import * as React from "react"
-import { Params } from "../types/params"
 import ContactForm from "../components/ContactForm/ContactForm"
 import Layout from "../components/layout"
 import PageName from "../components/PageName.tsx/PageName"
 import Seo from "../components/seo"
 import useParams from "../hooks/useParams"
+import { Params } from "../types/params"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up("sm")]: {},
   },
 }))
+
 const IndexPage = () => {
   const params = useParams()
   const classes = useStyles()
@@ -32,6 +33,7 @@ const IndexPage = () => {
   const defaultValues = {
     subject: params?.get(Params.subject) || "",
   }
+
   return (
     <Layout>
       <Card variant="outlined" className={classes.root}>
