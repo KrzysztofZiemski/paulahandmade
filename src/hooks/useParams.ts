@@ -9,7 +9,7 @@ const useParams = () => {
     useEffect(()=>{
         const newParams = typeof window !== `undefined`? window?.location?.search : location.search
         setParams(new URLSearchParams(newParams))
-    },[location.search,window?.location?.search])
+    },[location.search])
     return params
 }
 

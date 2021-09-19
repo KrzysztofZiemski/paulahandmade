@@ -20,5 +20,5 @@ export const validationSchema = yup.object({
       .matches(phoneRegExp, "Niepoprawny telefon"),
     subject: yup.string().required("Wpisz tytuł wiadomości"),
     message: yup.string().required("Wpisz wiadomość"),
-    // "g-recaptcha-response":yup.string().required("potwierdź, że nie jesteś robotem")
+    "g-recaptcha-response":yup.string().required("potwierdź, że nie jesteś robotem")
   })

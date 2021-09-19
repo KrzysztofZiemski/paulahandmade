@@ -74,5 +74,5 @@ yarn-error.log
 netlify
 
 # @netlify/plugin-gatsby ignores start
-netlify\functions/gatsby
+netlify/functions/gatsby
 # @netlify/plugin-gatsby ignores end

@@ -13,6 +13,7 @@ import MainButton from "../components/MainButton/MainButton"
 import { routes } from "../utils/routes"
 import { getSlugify } from "../helpers/getSlugify"
 import { Params } from "../types/params"
+import ImageSlider from "../components/ImageSlider/ImageSlider"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

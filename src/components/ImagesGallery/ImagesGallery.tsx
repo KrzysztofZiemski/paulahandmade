@@ -2,26 +2,30 @@ import { Box, Grid, IconButton, makeStyles, Theme } from "@material-ui/core"
 import React, { FC, useState } from "react"
 import Img from "gatsby-image"
 import { DatoCmsPhoto } from "../../types/datoCmsPhoto"
+import ImageSlider from "../../components/ImageSlider/ImageSlider"
 
 const useStyles = makeStyles((theme: Theme) => ({
   mainPhoto: {
     maxWith: "100%",
     height: "auto",
+    cursor: "pointer",
     [theme.breakpoints.up("sm")]: {
       height: "auto",
       borderRadius: "8px",
     },
     [theme.breakpoints.up("md")]: {
-      height: "calc(100vh - 238px)",
+      height: "calc(100vh - 246px)",
     },
   },
   photosContainer: {
     justifyContent: "flex-start",
     marginTop: theme.spacing(1),
     overflow: "auto",
-    backgroundColor: "#f3f3f3",
+
     [theme.breakpoints.up("sm")]: {
       flexWrap: "wrap",
+      paddingTop: theme.spacing(1),
+      borderTop: "3px solid #f3f3f3",
     },
   },
 
@@ -52,15 +56,17 @@ const ImagesGallery: FC<ImagesGalleryProps> = ({
 }) => {
   const classes = useStyles()
   const [pickedImage, setPickedImage] = useState(defaultPicked)
+  const [sliderIsOpen, setSliderIsOpen] = useState(false)
   return (
     <div {...props}>
-      <Img
-        fluid={images[pickedImage].fluid}
-        alt={images[pickedImage].alt}
-        className={classes.mainPhoto}
-        imgStyle={{ objectFit: "contain" }}
-      />
-
+      <div onClick={() => setSliderIsOpen(true)}>
+        <Img
+          fluid={images[pickedImage].fluid}
+          alt={images[pickedImage].alt}
+          className={classes.mainPhoto}
+          imgStyle={{ objectFit: "contain" }}
+        />
+      </div>
       <Grid container className={classes.photosContainer}>
         {images.map((photo, index) => (
           <IconButton
@@ -78,6 +84,12 @@ const ImagesGallery: FC<ImagesGalleryProps> = ({
           </IconButton>
         ))}
       </Grid>
+      <ImageSlider
+        images={images}
+        initialSlide={pickedImage}
+        onClose={() => setSliderIsOpen(false)}
+        show={sliderIsOpen}
+      />
     </div>
   )
 }

@@ -7,7 +7,6 @@ import { Box, IconButton, Grid } from "@material-ui/core"
 import { A11y, Navigation, Pagination, Scrollbar, Zoom } from "swiper"
 import { makeStyles } from "@material-ui/styles"
 import CloseIcon from "@material-ui/icons/Close"
-import useFullscreenStatus from "../../hooks/useFullscreenStatus"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,28 +53,26 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
   initialSlide,
   onClose,
 }) => {
+  if (!show) return null
   const classes = useStyles()
-  const maximizableElement = React.useRef(null)
-  let isFullscreen, setIsFullscreen
-  let errorMessage
-  try {
-    ;[isFullscreen, setIsFullscreen] = useFullscreenStatus(document.body)
-  } catch (e) {
-    errorMessage = "Fullscreen not supported"
-    isFullscreen = false
-    setIsFullscreen = undefined
+  const rootEl = useRef<any>(null)
+
+  const handleClose = async () => {
+    if (document.fullscreenElement !== null) {
+      document.exitFullscreen()
+    }
+    onClose()
   }
   useEffect(() => {
-    try {
-      //   document?.body?.requestFullscreen()
-    } catch (err) {
-      console.error(err)
+    if (!rootEl.current) return
+    if (document.fullscreenEnabled) {
+      rootEl.current.requestFullscreen()
     }
-  }, [])
-  if (!show) return null
+  }, [rootEl])
+
   return (
-    <Grid className={classes.root} ref={maximizableElement}>
-      <IconButton onClick={onClose} className={classes.closeIcon}>
+    <Grid className={classes.root} ref={rootEl}>
+      <IconButton onClick={handleClose} className={classes.closeIcon}>
         <CloseIcon />
       </IconButton>
       <Swiper
