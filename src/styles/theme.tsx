@@ -13,7 +13,7 @@ const theme = createTheme({
   },
 })
 
-const CustomThemeProvider = ({ children }) => {
+const CustomThemeProvider = ({ children }: any) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
   //   return <>{children}</>
 }

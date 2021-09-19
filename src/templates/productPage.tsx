@@ -6,15 +6,7 @@ import { DatoCmsProduct } from "../types/datoCmsProduct"
 import PageName from "../components/PageName.tsx/PageName"
 import { navigate } from "gatsby"
 
-import {
-  Button,
-  Grid,
-  Hidden,
-  IconButton,
-  makeStyles,
-  Theme,
-  Typography,
-} from "@material-ui/core"
+import { Grid, Hidden, makeStyles, Theme, Typography } from "@material-ui/core"
 import ImagesGallery from "../components/ImagesGallery/ImagesGallery"
 import { DatoCmsContentModular } from "../types/datoCmsContentModular"
 import MainButton from "../components/MainButton/MainButton"
@@ -23,22 +15,22 @@ import { getSlugify } from "../helpers/getSlugify"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    // backgroundColor: "#FFE3F1",
     [theme.breakpoints.up("sm")]: {
       display: "flex",
-      paddingTop: theme.spacing(2),
     },
   },
   galery: {
     [theme.breakpoints.up("sm")]: {
-      width: "50%",
+      width: "60%",
     },
   },
   price: {
-    fontWeight: 700,
-    textAlign: "center",
-    margin: "1rem",
+    margin: `${theme.spacing(1)}px 0`,
   },
   description: {
+    display: "flex",
+    flexDirection: "column",
     width: "100%",
     padding: theme.spacing(1),
     "& p": {},
@@ -48,7 +40,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       margin: "1rem 0",
     },
     [theme.breakpoints.up("sm")]: {
-      width: "50%",
+      width: "40%",
+      height: 500 - 32,
+      overflow: "auto",
+      padding: theme.spacing(2),
     },
   },
   smDownHidden: {
@@ -57,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   button: {
-    marginTop: theme.spacing(5),
+    marginTop: "auto",
     width: "100%",
   },
 }))
@@ -86,10 +81,6 @@ const ProductPage = ({ data }: ProductPage) => {
           <Hidden xsDown implementation="css">
             <PageName>{name}</PageName>
           </Hidden>
-          <Typography className={classes.price}>
-            {" "}
-            {`${price} zł + koszt przesyłki`}{" "}
-          </Typography>
           {description &&
             description.map((element, index) => {
               switch (element.model.apiKey) {
@@ -105,6 +96,9 @@ const ProductPage = ({ data }: ProductPage) => {
                   return null
               }
             })}
+          <Typography className={classes.price}>
+            {`${price} zł + koszt przesyłki`}
+          </Typography>
           <MainButton
             onClick={handleAskAboutProduct}
             className={classes.button}

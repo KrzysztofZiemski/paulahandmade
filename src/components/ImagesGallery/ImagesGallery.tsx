@@ -6,25 +6,31 @@ import { DatoCmsPhoto } from "../../types/datoCmsPhoto"
 const useStyles = makeStyles((theme: Theme) => ({
   mainPhoto: {
     maxWith: "100%",
-    maxHeight: "50vh",
+    height: 500,
+    [theme.breakpoints.up("sm")]: {
+      borderRadius: "0 8px 8px 0",
+    },
   },
   photosContainer: {
-    flexWrap: "wrap",
     justifyContent: "flex-start",
     marginTop: theme.spacing(1),
+    overflow: "auto",
+    [theme.breakpoints.up("sm")]: {
+      flexWrap: "wrap",
+    },
   },
 
   smallPhoto: {
-    maxHeight: 90,
-    width: 90,
+    maxHeight: 70,
+    width: 70,
     border: `3px solid ${theme.palette.common.white}`,
     [theme.breakpoints.up("sm")]: {
-      width: 130,
-      maxHeight: 130,
+      width: 70,
+      maxHeight: 70,
     },
     [theme.breakpoints.up("sm")]: {
-      width: 100,
-      maxHeight: 100,
+      width: 70,
+      maxHeight: 70,
     },
   },
   activeImage: {
@@ -53,7 +59,11 @@ const ImagesGallery: FC<ImagesGalleryProps> = ({
       />
       <Grid container className={classes.photosContainer}>
         {images.map((photo, index) => (
-          <IconButton onClick={() => setPickedImage(index)} key={index}>
+          <IconButton
+            onClick={() => setPickedImage(index)}
+            key={index}
+            style={{ padding: 0 }}
+          >
             <Img
               fluid={photo.fluid}
               alt={photo.alt}

@@ -34,8 +34,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.black,
   },
   paperMobile: {
-    height: "calc(100% - 158px)",
-    top: "158px",
+    height: "100%",
+    top: "0",
   },
   desktopMenuPaper: {
     height: "100%",
