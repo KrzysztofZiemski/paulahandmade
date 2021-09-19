@@ -5,7 +5,7 @@ import Seo from "../components/seo"
 const IndexPage = () => (
   <Layout>
     <Seo title="Kalendarz" />
-    kalendarz
+    Strona w budowie
   </Layout>
 )
 
