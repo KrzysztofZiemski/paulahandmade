@@ -6,11 +6,15 @@ export const navList = [
     path: routes.root,
   },
   {
-    label: "Kursy",
-    path: routes.courses,
-  },
-  {
-    label: "Kalendarz",
-    path: routes.calendar,
-  },
+    label:"Kontakt",
+    path:routes.contact
+  }
+  // {
+  //   label: "Kursy",
+  //   path: routes.courses,
+  // },
+  // {
+  //   label: "Kalendarz",
+  //   path: routes.calendar,
+  // },
 ]
