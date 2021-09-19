@@ -1,4 +1,4 @@
-import { Grid, IconButton, makeStyles, Theme } from "@material-ui/core"
+import { Box, Grid, IconButton, makeStyles, Theme } from "@material-ui/core"
 import React, { FC, useState } from "react"
 import Img from "gatsby-image"
 import { DatoCmsPhoto } from "../../types/datoCmsPhoto"
@@ -6,15 +6,20 @@ import { DatoCmsPhoto } from "../../types/datoCmsPhoto"
 const useStyles = makeStyles((theme: Theme) => ({
   mainPhoto: {
     maxWith: "100%",
-    height: 500,
+    height: "auto",
     [theme.breakpoints.up("sm")]: {
-      borderRadius: "0 8px 8px 0",
+      height: "auto",
+      borderRadius: "8px",
+    },
+    [theme.breakpoints.up("md")]: {
+      height: "calc(100vh - 238px)",
     },
   },
   photosContainer: {
     justifyContent: "flex-start",
     marginTop: theme.spacing(1),
     overflow: "auto",
+    backgroundColor: "#f3f3f3",
     [theme.breakpoints.up("sm")]: {
       flexWrap: "wrap",
     },
@@ -27,10 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: 70,
       maxHeight: 70,
-    },
-    [theme.breakpoints.up("sm")]: {
-      width: 70,
-      maxHeight: 70,
+      marginRight: theme.spacing(1),
     },
   },
   activeImage: {
@@ -56,7 +58,9 @@ const ImagesGallery: FC<ImagesGalleryProps> = ({
         fluid={images[pickedImage].fluid}
         alt={images[pickedImage].alt}
         className={classes.mainPhoto}
+        imgStyle={{ objectFit: "contain" }}
       />
+
       <Grid container className={classes.photosContainer}>
         {images.map((photo, index) => (
           <IconButton

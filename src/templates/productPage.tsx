@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     [theme.breakpoints.up("sm")]: {
       width: "40%",
-      height: 500 - 32,
+      paddingBottom: 90,
       overflow: "auto",
       padding: theme.spacing(2),
     },
@@ -70,7 +70,7 @@ const ProductPage = ({ data }: ProductPage) => {
     navigate(`${routes.contact}?${Params.subject}=${getSlugify(name)}`)
   }
   return (
-    <Layout>
+    <Layout hideNav={true}>
       <Seo title={name} />
       <Grid className={classes.root}>
         <Hidden smUp implementation="css">
