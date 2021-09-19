@@ -17,7 +17,7 @@ interface IndexPageProps {
   }
 }
 
-const IndexPage = ({ data }: any) => {
+const IndexPage = ({ data }: IndexPageProps) => {
   const { allDatoCmsProduct } = data
   const nodes = allDatoCmsProduct.nodes
 

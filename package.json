@@ -30,9 +30,11 @@
     "react-helmet": "^6.1.0",
     "sharp": "^0.29.1",
     "slugify": "^1.6.0",
+    "swiper": "^7.0.6",
     "yup": "^0.32.9"
   },
   "devDependencies": {
+    "@types/fscreen": "^1.0.1",
     "@types/react-google-recaptcha": "^2.1.2",
     "prettier": "^2.3.2"
   },
