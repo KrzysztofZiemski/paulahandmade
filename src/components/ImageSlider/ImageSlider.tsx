@@ -3,6 +3,7 @@ import { DatoCmsPhoto } from "../../types/datoCmsPhoto"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import "swiper/css/navigation"
+import "./ImageSlider.css"
 import { Box, IconButton, Grid } from "@material-ui/core"
 import { A11y, Navigation, Pagination, Scrollbar, Zoom } from "swiper"
 import { makeStyles } from "@material-ui/styles"
@@ -28,16 +29,18 @@ const useStyles = makeStyles(theme => ({
     "& svg": { fontSize: "3.5rem" },
   },
   imageContainer: {
-    height: "100vh",
     width: "100%",
     display: "flex",
+    flexGrow: 1,
     justifyContent: "center",
+    alignContent: "center",
   },
-  image: { height: "100vh" },
+  image: {
+    maxHeight: "100vh",
+    maxWidth: "100%",
+  },
   slider: {
-    ".swiper-button-next": {
-      color: "red",
-    },
+    alignSelf: "center",
   },
 }))
 interface ImageSliderProps {
