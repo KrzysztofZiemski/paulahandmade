@@ -120,6 +120,9 @@ export const query = graphql`
       name
       shortDescription
       category
+      productColors {
+        colorsBase
+      }
       description {
         ... on DatoCmsTextParagraph {
           model {

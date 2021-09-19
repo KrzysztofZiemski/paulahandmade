@@ -8,6 +8,9 @@ export type Content = {
   }
   text: string
 }
+export type ProductColor = {
+    colorsBase:string
+}
 
 export interface DatoCmsProduct {
   id: string
@@ -18,4 +21,5 @@ export interface DatoCmsProduct {
   description?: Content[]
   tags: Tag[]
   shortDescription: string
+  productColors: ProductColor[]
 }

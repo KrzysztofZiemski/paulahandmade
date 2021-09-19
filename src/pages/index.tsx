@@ -20,7 +20,7 @@ interface IndexPageProps {
 const IndexPage = ({ data }: IndexPageProps) => {
   const { allDatoCmsProduct } = data
   const nodes = allDatoCmsProduct.nodes
-
+  console.log(nodes)
   const classes = useStyles()
   return (
     <Layout>
@@ -47,6 +47,9 @@ export const query = graphql`
         tags {
           id
           tag
+        }
+        productColors {
+          colorsBase
         }
         shortDescription
         description {
