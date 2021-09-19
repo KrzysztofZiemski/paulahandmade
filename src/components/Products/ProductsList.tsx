@@ -17,21 +17,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       justifyContent: "space-evenly",
     },
   },
-  listItem: {
-    width: "100%",
-    maxWidth: 450,
-    paddingLeft: 10,
-    paddingRight: 10,
-
-    [theme.breakpoints.up("sm")]: {
-      width: "50%",
-      height: 450,
-    },
-    [theme.breakpoints.up("md")]: {
-      width: "30%",
-      height: 500,
-    },
-  },
 }))
 
 const filterHandler = (item: DatoCmsProduct, filderValue: string) => {
@@ -63,17 +48,16 @@ const ProductsList = ({ list }: { list: DatoCmsProduct[] }) => {
           id,
           price,
         }: DatoCmsProduct) => (
-          <ListItem className={classes.listItem} key={id}>
-            <ProductItem
-              price={price}
-              link={`produkt/${getSlugify(name)}`}
-              title={name}
-              tags={tags}
-              fluidImage={photos[0].fluid}
-              imageAlt={photos[0].alt}
-              description={shortDescription}
-            />
-          </ListItem>
+          <ProductItem
+            key={id}
+            price={price}
+            link={`produkt/${getSlugify(name)}`}
+            title={name}
+            tags={tags}
+            fluidImage={photos[0].fluid}
+            imageAlt={photos[0].alt}
+            description={shortDescription}
+          />
         )
       )}
     </List>

@@ -4,6 +4,7 @@ import {
   CardContent,
   Grid,
   Link,
+  ListItem,
   makeStyles,
   Theme,
   Typography,
@@ -21,8 +22,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    height: "100%",
+    maxWidth: 300,
+    margin: theme.spacing(1),
     overflow: "auto",
+    [theme.breakpoints.up("sm")]: {
+      maxWidth: "46%",
+      height: 530,
+    },
+    [theme.breakpoints.up("md")]: {
+      width: 300,
+      height: 500,
+    },
   },
   actions: {
     justifyContent: "flex-end",
@@ -80,8 +90,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   img: {
-    maxWidth: "100%",
-    maxHeight: 200,
+    // height: 200,
+    width: "100%",
   },
   content: {},
 }))
@@ -117,7 +127,12 @@ const ProductItem = ({
   return (
     <Card className={classes.root}>
       <Link component={GatsbyLink} to={link}>
-        <Img fluid={fluidImage} className={classes.img} alt={imageAlt} />
+        <Img
+          fluid={fluidImage}
+          className={classes.img}
+          alt={imageAlt}
+          imgStyle={{ objectFit: "contain" }}
+        />
       </Link>
       <Grid className={classes.header}>
         <Grid>
