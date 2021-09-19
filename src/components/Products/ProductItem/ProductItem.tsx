@@ -12,10 +12,11 @@ import {
 import { Link as GatsbyLink } from "gatsby"
 import GatsbyImage, { FluidObject } from "gatsby-image"
 import Img from "gatsby-image"
-import React from "react"
+import React, { useContext } from "react"
 import { Content } from "../../../types/datoCmsProduct"
 import { Tag } from "../../../types/tag"
 import { DatoCmsContentModular } from "../../../types/datoCmsContentModular"
+import { SearchContext } from "../../../context/SearchContext"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -70,6 +71,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "relative",
     paddingRight: 10,
     paddingLeft: 10,
+    backgroundColor: "inherit",
+    border: "none",
+    color: theme.palette.primary.main,
+    cursor: "pointer",
     "&:first-child": {
       paddingLeft: 0,
     },
@@ -116,11 +121,16 @@ const ProductItem = ({
   price,
 }: ProductItemProps) => {
   const classes = useStyles()
+  const { searchValue, setSearchValue } = useContext(SearchContext)
 
   const subheader = tags.map(tag => (
-    <span className={classes.tag} key={tag.id}>
+    <button
+      className={classes.tag}
+      key={tag.id}
+      onClick={() => setSearchValue(tag.tag)}
+    >
       {tag.tag}
-    </span>
+    </button>
   ))
 
   return (
