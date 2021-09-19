@@ -12,10 +12,12 @@ import {
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
 import { useLocation } from "@reach/router"
 import { navigate } from "gatsby"
+import useParams from "../../hooks/useParams"
 import React, { useEffect, useState } from "react"
-import { NavigationItemType } from "types/navigationItemType"
+import { NavigationItemType } from "../../types/navigationItemType"
 import CustomDivider from "./CustomDivider"
 import { getCategoryParam, subMenuIsOpen } from "./helpers"
+import { Params } from "../../types/params"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
@@ -76,24 +78,24 @@ interface NavigationItemProps {
 const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
   const classes = useStyles()
   const location = useLocation()
+  const params = useParams()
   const [isOpen, setIsOpen] = useState(
     typeof window !== `undefined`
-      ? subMenuIsOpen({ item, param: window.location.search })
+      ? subMenuIsOpen({ item, param: getCategoryParam(params) })
       : false
   )
+
   const [categoryParams, setCategoryParams] = useState<null | string>(
-    typeof window !== `undefined`
-      ? getCategoryParam(window.location.search)
-      : null
+    getCategoryParam(params)
   )
 
   useEffect(() => {
-    const categoryParams = getCategoryParam(location.search)
+    const categoryParams = getCategoryParam(params)
     setCategoryParams(categoryParams)
 
     if (!item.hasSubList || isOpen) return
     setIsOpen(subMenuIsOpen({ item, param: categoryParams }))
-  }, [location.search])
+  }, [params])
 
   const { label, hasSubList } = item
 
@@ -104,8 +106,8 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
       navigate(`/`)
     } else {
       location.pathname === "/"
-        ? navigate(`?category=${query}`)
-        : navigate(`/?category=${query}`)
+        ? navigate(`?${Params.category}=${query}`)
+        : navigate(`/?${Params.category}=${query}`)
     }
 
     onClose()

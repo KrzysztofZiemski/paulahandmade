@@ -1,7 +1,8 @@
 import { NavigationItemType } from "types/navigationItemType"
+import { Params } from "../../types/params"
 
-export const getCategoryParam = (params: string) =>
-  new URLSearchParams(params).get("category") || ""
+export const getCategoryParam = (params: URLSearchParams) =>
+  params.get(Params.category) || ""
 
 export const subMenuIsOpen = ({
   item,

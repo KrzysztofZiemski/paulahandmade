@@ -12,10 +12,10 @@ import { DatoCmsContentModular } from "../types/datoCmsContentModular"
 import MainButton from "../components/MainButton/MainButton"
 import { routes } from "../utils/routes"
 import { getSlugify } from "../helpers/getSlugify"
+import { Params } from "../types/params"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    // backgroundColor: "#FFE3F1",
     [theme.breakpoints.up("sm")]: {
       display: "flex",
     },
@@ -67,7 +67,7 @@ const ProductPage = ({ data }: ProductPage) => {
   const { name, photos, description, price } = data.datoCmsProduct
 
   const handleAskAboutProduct = () => {
-    navigate(`${routes.contact}?subject=${getSlugify(name)}`)
+    navigate(`${routes.contact}?${Params.subject}=${getSlugify(name)}`)
   }
   return (
     <Layout>

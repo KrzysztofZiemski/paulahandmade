@@ -1,15 +1,12 @@
-import { Box, Button, makeStyles, MenuItem, TextField } from "@material-ui/core"
+import { Button, makeStyles, MenuItem } from "@material-ui/core"
 import { useFormik } from "formik"
-import { FunctionComponent } from "react"
-import * as yup from "yup"
-import React from "react"
-import CustomTextField from "../fields/CustomTextField"
-import CustomSelectField from "../fields/CustomSelectField"
-
-import { validationSchema } from "./schema"
+import React, { FunctionComponent } from "react"
+import Recaptcha from "../../components/fields/Recaptcha"
 import { TypeOfContact } from "../../types/typeOfContact"
 import { encode } from "../../utils/encode"
-import Recaptcha from "../../components/fields/Recaptcha"
+import CustomSelectField from "../fields/CustomSelectField"
+import CustomTextField from "../fields/CustomTextField"
+import { validationSchema } from "./schema"
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -23,17 +20,26 @@ const useStyles = makeStyles(theme => ({
 
 interface ContactFormProps {
   className: string
+  defaultValues?: {
+    email?: string
+    phone?: string
+    subject?: string
+    message?: string
+  }
 }
 
-const ContactForm: FunctionComponent<ContactFormProps> = ({ className }) => {
+const ContactForm: FunctionComponent<ContactFormProps> = ({
+  className,
+  defaultValues,
+}) => {
   const classes = useStyles()
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
+      email: defaultValues?.email || "",
+      phone: defaultValues?.phone || "",
+      subject: defaultValues?.subject || "",
+      message: defaultValues?.message || "",
       "g-recaptcha-response": "",
       typeOfContact: TypeOfContact.mail,
     },

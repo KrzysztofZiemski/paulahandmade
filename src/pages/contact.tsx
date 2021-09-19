@@ -1,23 +1,11 @@
-import {
-  Card,
-  FormControl,
-  FormGroup,
-  Grid,
-  makeStyles,
-  MenuItem,
-  Theme,
-} from "@material-ui/core"
-import CustomSelectField from "../components/fields/CustomSelectField"
-import { graphql } from "gatsby"
+import { Card, makeStyles, Theme } from "@material-ui/core"
 import * as React from "react"
-
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import { routes } from "../utils/routes"
-import CustomTextField from "../components/fields/CustomTextField"
-import MainButton from "../components/MainButton/MainButton"
+import { Params } from "../types/params"
 import ContactForm from "../components/ContactForm/ContactForm"
+import Layout from "../components/layout"
 import PageName from "../components/PageName.tsx/PageName"
+import Seo from "../components/seo"
+import useParams from "../hooks/useParams"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -37,15 +25,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.up("sm")]: {},
   },
 }))
-
 const IndexPage = () => {
+  const params = useParams()
   const classes = useStyles()
+
+  const defaultValues = {
+    subject: params?.get(Params.subject) || "",
+  }
   return (
     <Layout>
       <Card variant="outlined" className={classes.root}>
         <PageName>Kontakt</PageName>
         <Seo title="Kontakt" />
-        <ContactForm className={classes.form} />
+        <ContactForm className={classes.form} defaultValues={defaultValues} />
       </Card>
     </Layout>
   )

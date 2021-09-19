@@ -116,7 +116,6 @@ const ProductItem = ({
   price,
 }: ProductItemProps) => {
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(false)
 
   const subheader = tags.map(tag => (
     <span className={classes.tag} key={tag.id}>
