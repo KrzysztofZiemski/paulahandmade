@@ -4,8 +4,8 @@ import ContactForm from "../components/ContactForm/ContactForm"
 import Layout from "../components/layout"
 import PageName from "../components/PageName.tsx/PageName"
 import Seo from "../components/seo"
-import useParams from "../hooks/useParams"
 import { Params } from "../types/params"
+import useParams from "../hooks/useParams"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -31,7 +31,7 @@ const IndexPage = () => {
   const classes = useStyles()
 
   const defaultValues = {
-    subject: params?.get(Params.subject) || "",
+    subject: params.get(Params.subject) || "",
   }
 
   return (

@@ -3,13 +3,13 @@ export class UrlParams{
     constructor(link:string){
         this.params = this.getAllUrlParams(link);
     }
-    getParam(paramName:string):string|null{
+    get(paramName:string):string|null{
         return this.params[paramName] || null
     }
-    get allParam(){
+    get getAll(){
         return this.params
     }
-    set param({name,value}:{name:string,value:string}){
+    set set({name,value}:{name:string,value:string}){
         this.params[name] = value
     }
     resetAll(){

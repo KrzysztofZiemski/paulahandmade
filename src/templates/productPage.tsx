@@ -1,19 +1,16 @@
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import React, { useState } from "react"
-import { graphql } from "gatsby"
-import { DatoCmsProduct } from "../types/datoCmsProduct"
-import PageName from "../components/PageName.tsx/PageName"
-import { navigate } from "gatsby"
-
 import { Grid, Hidden, makeStyles, Theme, Typography } from "@material-ui/core"
+import { graphql, navigate } from "gatsby"
+import React from "react"
 import ImagesGallery from "../components/ImagesGallery/ImagesGallery"
-import { DatoCmsContentModular } from "../types/datoCmsContentModular"
+import Layout from "../components/layout"
 import MainButton from "../components/MainButton/MainButton"
-import { routes } from "../utils/routes"
+import PageName from "../components/PageName.tsx/PageName"
+import Seo from "../components/seo"
 import { getSlugify } from "../helpers/getSlugify"
+import { DatoCmsContentModular } from "../types/datoCmsContentModular"
+import { DatoCmsProduct } from "../types/datoCmsProduct"
 import { Params } from "../types/params"
-import ImageSlider from "../components/ImageSlider/ImageSlider"
+import { routes } from "../utils/routes"
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -68,8 +65,9 @@ const ProductPage = ({ data }: ProductPage) => {
   const { name, photos, description, price } = data.datoCmsProduct
 
   const handleAskAboutProduct = () => {
-    navigate(`${routes.contact}?${Params.subject}=${getSlugify(name)}`)
+    navigate(`${routes.contact}#?${Params.subject}=${getSlugify(name)}`)
   }
+
   return (
     <Layout hideNav={true}>
       <Seo title={name} />

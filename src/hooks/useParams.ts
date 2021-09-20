@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 
 const useParams = () => {
     const location = useLocation()
-    const [params, setParams] = useState(new UrlParams(typeof window !== `undefined`? window?.location?.hash : location.hash))
+    const [params, setParams] = useState(new UrlParams(location.hash))
 
     useEffect(()=>{
-        const link = typeof window !== `undefined`? window?.location?.hash : location.hash
+        const link = location.hash
         const newParams = new UrlParams(link)
         setParams(newParams)
     },[location])
