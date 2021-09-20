@@ -128,7 +128,7 @@ export const query = graphql`
       }
       photos {
         alt
-        fluid(maxWidth: 400) {
+        fluid(maxWidth: 1280) {
           ...GatsbyDatoCmsFluid_tracedSVG
         }
       }
