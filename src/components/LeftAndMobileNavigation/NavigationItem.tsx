@@ -83,7 +83,7 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
   const params = useParams()
   const [isOpen, setIsOpen] = useState(
     typeof window !== `undefined`
-      ? subMenuIsOpen({ item, param: getCategoryParam(params) })
+      ? subMenuIsOpen({ item, param: getCategoryParam(params) || "" })
       : false
   )
 
@@ -96,7 +96,7 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
     setCategoryParams(categoryParams)
 
     if (!subCategories || isOpen) return
-    setIsOpen(subMenuIsOpen({ item, param: categoryParams }))
+    setIsOpen(subMenuIsOpen({ item, param: categoryParams || "" }))
   }, [params])
 
   const { label, filter, subCategories } = item
@@ -104,14 +104,11 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
   const handleOpenSubMenu = () => setIsOpen(prev => !prev)
 
   const goTo = (query: string) => {
-    if (query === "") {
-      navigate(`/`)
+    if (location.pathname === "/") {
+      navigate(`#?${Params.category}=${query}`)
     } else {
-      location.pathname === "/"
-        ? navigate(`?${Params.category}=${query}`)
-        : navigate(`/?${Params.category}=${query}`)
+      navigate(`/?${Params.category}=${query}`)
     }
-
     onClose()
   }
 

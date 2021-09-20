@@ -1,11 +1,12 @@
 import { List, makeStyles, Theme } from "@material-ui/core"
 import { SearchContext } from "../../context/SearchContext"
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { DatoCmsProduct, ProductColor } from "../../types/datoCmsProduct"
 import { Tag } from "../../types/tag"
 import ProductItem from "./ProductItem/ProductItem"
 import { Filter } from "../../helpers/Filter"
 import { getSlugify } from "../../helpers/getSlugify"
+import useParams from "../../hooks/useParams"
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {
