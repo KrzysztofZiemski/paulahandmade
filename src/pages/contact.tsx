@@ -38,7 +38,12 @@ const IndexPage = () => {
     <Layout>
       <Card variant="outlined" className={classes.root}>
         <PageName>Kontakt</PageName>
-        <Seo title="Kontakt" />
+        <Seo
+          lang="pl"
+          title="Kontakt Paula Handmade Rękodzieło."
+          description="Rękodzieło z pasją. Napisz do mnie tutaj na stronie lub facebooku. 
+          I nie zapomnij zajrzeć w poszukiwaniu nowości"
+        />
         <ContactForm className={classes.form} defaultValues={defaultValues} />
       </Card>
     </Layout>

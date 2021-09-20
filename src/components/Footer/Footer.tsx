@@ -1,8 +1,15 @@
 import React from "react"
-import { Box, Grid, makeStyles, Theme, Typography } from "@material-ui/core"
+import {
+  Box,
+  Grid,
+  Link,
+  makeStyles,
+  Theme,
+  Typography,
+} from "@material-ui/core"
 import FacebookIcon from "@material-ui/icons/Facebook"
 import PinterestIcon from "@material-ui/icons/Pinterest"
-import { Link } from "gatsby"
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: theme.palette.common.white,
@@ -19,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   paragraph: {
     fontSize: 24,
-    // width: "50%",
     textAlign: "center",
     fontWeight: 700,
     fontFamily: "Lato",
@@ -46,10 +52,15 @@ const Footer = ({}: FooterProps) => {
     <Grid component="footer" className={classes.root} container>
       <Typography className={classes.paragraph}>Znajdź mnie</Typography>
       <Grid className={classes.socialContainer}>
-        <Link to="#" className={classes.link}>
+        <Link
+          color="inherit"
+          target="_blank"
+          href="https://www.facebook.com/paula.z.handmade/"
+          className={classes.link}
+        >
           <FacebookIcon className={classes.icon} />
         </Link>
-        <Link to="#" className={classes.link}>
+        <Link color="inherit" href="#" target="_blank" className={classes.link}>
           <PinterestIcon className={classes.icon} />
         </Link>
       </Grid>

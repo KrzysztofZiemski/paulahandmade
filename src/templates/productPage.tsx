@@ -62,7 +62,8 @@ interface ProductPage {
 }
 const ProductPage = ({ data }: ProductPage) => {
   const classes = useStyles()
-  const { name, photos, description, price } = data.datoCmsProduct
+  const { name, photos, description, shortDescription, price } =
+    data.datoCmsProduct
 
   const handleAskAboutProduct = () => {
     navigate(`${routes.contact}#?${Params.subject}=${getSlugify(name)}`)
@@ -70,7 +71,11 @@ const ProductPage = ({ data }: ProductPage) => {
 
   return (
     <Layout hideNav={true}>
-      <Seo title={name} />
+      <Seo
+        title={`${name} - Paula Handmade Rękodzieło`}
+        description={shortDescription}
+        lang="pl"
+      />
       <Grid className={classes.root}>
         <Hidden smUp implementation="css">
           <PageName>{name}</PageName>

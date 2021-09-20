@@ -8,6 +8,7 @@ import { getSlugify } from "../helpers/getSlugify"
 import useParams from "../hooks/useParams"
 import { DatoCmsProduct } from "../types/datoCmsProduct"
 import { Params } from "../types/params"
+import PageName from "../components/PageName.tsx/PageName"
 
 interface IndexPageProps {
   data: {
@@ -41,7 +42,15 @@ const IndexPage = ({ data }: IndexPageProps) => {
 
   return (
     <Layout>
-      <Seo title="Produkty" />
+      <Seo
+        lang="pl"
+        title="Paula Handmade Rękodzieło. Maskotki, bransoletki, chusty, kolczyki, naszyjniki, torebki."
+        description="Rękodzieło z pasją. Sprawdź moje maskotki lub bużuterię i dodatki. 
+        Wszystko wykonuje własnoręcznie, więc gwarantuje, że nie znajdziesz duplikatu. 
+        Sprawdź co posiadam aktualnie w ofercie, ale również specjalizuję w tworzeniu na zamówienie. 
+        Okazjonalne prezenty zarówno ślubne jak i na chrzciny nie są mi obce."
+      />
+      <PageName> Oferta </PageName>
       <ProductsList list={list} />
     </Layout>
   )

@@ -36,6 +36,7 @@
   "devDependencies": {
     "@types/fscreen": "^1.0.1",
     "@types/react-google-recaptcha": "^2.1.2",
+    "@types/react-helmet": "^6.1.2",
     "prettier": "^2.3.2"
   },
   "keywords": [
