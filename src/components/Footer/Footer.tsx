@@ -60,7 +60,12 @@ const Footer = ({}: FooterProps) => {
         >
           <FacebookIcon className={classes.icon} />
         </Link>
-        <Link color="inherit" href="#" target="_blank" className={classes.link}>
+        <Link
+          color="inherit"
+          href="https://pl.pinterest.com/paulahandmade/"
+          target="_blank"
+          className={classes.link}
+        >
           <PinterestIcon className={classes.icon} />
         </Link>
       </Grid>
