@@ -27,7 +27,8 @@ export enum NameOfCategory{
     earrings_category = "kolczyki   ",
     mascots_category = "maskotki",
     necklaces_category = "naszyjniki",
-    handbags_category = "torebki"
+    handbags_category = "torebki",
+    all = ""
 }
 
 

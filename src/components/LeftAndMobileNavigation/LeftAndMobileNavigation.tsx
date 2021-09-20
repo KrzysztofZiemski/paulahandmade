@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       position: "sticky",
       overflow: "auto",
-      height: "calc(100vh - 80)",
+      height: "100vh",
       top: 0,
       paddingTop: 0,
     },

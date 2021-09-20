@@ -2,6 +2,10 @@ import { NameOfCategory, SubCategoryBraceles, SubCategoryEarrings, SubCategoryMa
 import { NavItem } from "../../types/NavItem";
 
 export const navigationList:NavItem[] = [
+  {
+    label:"Wszystko",
+    filter:NameOfCategory.all
+  },
  {
    label:"Maskotki",
    filter:NameOfCategory.mascots_category,
