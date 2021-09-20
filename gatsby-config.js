@@ -8,9 +8,10 @@ module.exports = {
     title: ``,
     description: ``,
     author: `@krzysztofziemski`,
-    siteUrl: `https://paulahandlamde.pl/`,
+    siteUrl: `https://www.paulahandmade.pl/`,
   },
   plugins: [
+    `gatsby-plugin-netlify`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
@@ -52,7 +53,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/logo-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/logo-icon.png`,
       },
     },
     `gatsby-plugin-gatsby-cloud`,
