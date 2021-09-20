@@ -119,17 +119,26 @@ export const query = graphql`
       price
       name
       shortDescription
-      category
       productColors {
         colorsBase
+      }
+      tags {
+        id
+        tag
+      }
+      photos {
+        alt
+        fluid(maxWidth: 400) {
+          ...GatsbyDatoCmsFluid_tracedSVG
+        }
       }
       categoryProduct {
         ... on DatoCmsKolczyki {
           id
-          subcategory
           model {
             apiKey
           }
+          subcategory
         }
         ... on DatoCmsBransoletki {
           id
@@ -159,34 +168,10 @@ export const query = graphql`
         }
         ... on DatoCmsMaskotki {
           id
+          model {
+            apiKey
+          }
           subcategory
-          model {
-            apiKey
-          }
-        }
-      }
-      description {
-        ... on DatoCmsTextParagraph {
-          model {
-            apiKey
-          }
-          text
-        }
-        ... on DatoCmsTextSubheader {
-          model {
-            apiKey
-          }
-          text
-        }
-      }
-      tags {
-        id
-        tag
-      }
-      photos {
-        alt
-        fluid(maxWidth: 400) {
-          ...GatsbyDatoCmsFluid_tracedSVG
         }
       }
     }
