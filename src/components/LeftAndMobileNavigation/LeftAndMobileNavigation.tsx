@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
   desktopMenuPaper: {
     height: "100%",
-    width: 200,
+    width: 210,
   },
   desktopMenuList: {
     [theme.breakpoints.up("md")]: {

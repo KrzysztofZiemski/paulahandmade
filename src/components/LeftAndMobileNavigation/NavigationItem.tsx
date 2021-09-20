@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     "&.Mui-selected.MuiListItem-root": {
       color: theme.palette.primary.main,
       backgroundColor: "inherit",
+      whiteSpace: "nowrap",
       [theme.breakpoints.up("md")]: {
         "& span": {
           fontWeight: 700,
