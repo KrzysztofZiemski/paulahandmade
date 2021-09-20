@@ -14,10 +14,12 @@ import { useLocation } from "@reach/router"
 import { navigate } from "gatsby"
 import useParams from "../../hooks/useParams"
 import React, { useEffect, useState } from "react"
-import { NavigationItemType } from "../../types/navigationItemType"
+
 import CustomDivider from "./CustomDivider"
 import { getCategoryParam, subMenuIsOpen } from "./helpers"
 import { Params } from "../../types/params"
+import { NavItem } from "../../types/NavItem"
+import { getSlugify } from "../../helpers/getSlugify"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
@@ -71,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 interface NavigationItemProps {
-  item: NavigationItemType
+  item: NavItem
   onClose: () => void
 }
 
@@ -93,11 +95,11 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
     const categoryParams = getCategoryParam(params)
     setCategoryParams(categoryParams)
 
-    if (!item.hasSubList || isOpen) return
+    if (!subCategories || isOpen) return
     setIsOpen(subMenuIsOpen({ item, param: categoryParams }))
   }, [params])
 
-  const { label, hasSubList } = item
+  const { label, filter, subCategories } = item
 
   const handleOpenSubMenu = () => setIsOpen(prev => !prev)
 
@@ -117,28 +119,28 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
     <>
       <MenuItem
         className={classes.item}
-        selected={!hasSubList && categoryParams === item.filter}
-        onClick={hasSubList ? handleOpenSubMenu : () => goTo(item.filter)}
+        selected={!subCategories && categoryParams === filter}
+        onClick={subCategories ? handleOpenSubMenu : () => goTo(filter)}
       >
         <ListItemText
           primary={<Typography className={classes.title}>{label}</Typography>}
         />
         <ListItemIcon className={classes.downIcon}>
-          {hasSubList && <ArrowDropDownIcon color="primary" />}
+          {subCategories && <ArrowDropDownIcon color="primary" />}
         </ListItemIcon>
       </MenuItem>
-      {hasSubList && (
+      {subCategories && (
         <Collapse in={isOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {item.list.map(el => (
+            {subCategories.map(el => (
               <ListItem
                 className={classes.subMenuItem}
-                key={el.filter}
+                key={el}
                 button
-                selected={categoryParams === el.filter}
-                onClick={() => goTo(el.filter)}
+                selected={categoryParams === getSlugify(el)}
+                onClick={() => goTo(getSlugify(el))}
               >
-                <ListItemText primary={el.filter} />
+                <ListItemText primary={el} />
               </ListItem>
             ))}
           </List>

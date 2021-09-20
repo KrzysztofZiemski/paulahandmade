@@ -1,4 +1,4 @@
-import { NavigationItemType } from "types/navigationItemType"
+import { NavItem } from "../../types/NavItem"
 import { Params } from "../../types/params"
 
 export const getCategoryParam = (params: URLSearchParams) =>
@@ -8,12 +8,12 @@ export const subMenuIsOpen = ({
   item,
   param,
 }: {
-  item: NavigationItemType
+  item: NavItem
   param: string
 }) => {
-  if (!item.hasSubList) return false
-  const index = item.list.findIndex(el => {
-    return el.filter === param
+  if (!item.subCategories) return false
+  const index = item.subCategories.findIndex(el => {
+    return el === param
   })
   return index !== -1
 }

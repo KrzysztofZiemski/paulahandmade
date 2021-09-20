@@ -123,6 +123,48 @@ export const query = graphql`
       productColors {
         colorsBase
       }
+      categoryProduct {
+        ... on DatoCmsKolczyki {
+          id
+          subcategory
+          model {
+            apiKey
+          }
+        }
+        ... on DatoCmsBransoletki {
+          id
+          model {
+            apiKey
+          }
+          subcategory
+        }
+        ... on DatoCmsChusty {
+          id
+          model {
+            apiKey
+          }
+          subcategory
+        }
+        ... on DatoCmsNaszyjniki {
+          id
+          model {
+            apiKey
+          }
+        }
+        ... on DatoCmsTorebki {
+          id
+          model {
+            apiKey
+          }
+        }
+        ... on DatoCmsMaskotki {
+          id
+          subcategory
+          model {
+            apiKey
+          }
+        }
+      }
       description {
         ... on DatoCmsTextParagraph {
           model {

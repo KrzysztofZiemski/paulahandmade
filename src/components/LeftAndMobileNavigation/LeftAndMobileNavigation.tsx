@@ -44,6 +44,8 @@ const useStyles = makeStyles(theme => ({
   desktopMenuList: {
     [theme.breakpoints.up("md")]: {
       position: "sticky",
+      overflow: "auto",
+      height: "calc(100vh - 80)",
       top: 0,
       paddingTop: 0,
     },

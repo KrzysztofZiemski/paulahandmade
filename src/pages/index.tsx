@@ -1,13 +1,12 @@
-import ProductItem from "../components/Products/ProductItem/ProductItem"
 import { graphql } from "gatsby"
-import React from "react"
+import useParams from "../hooks/useParams"
+import React, { useEffect, useState } from "react"
+import { Params } from "../types/params"
 import Layout from "../components/layout"
-import Seo from "../components/seo"
-import { List, ListItem, makeStyles, Theme } from "@material-ui/core"
-import { DatoCmsProduct } from "../types/datoCmsProduct"
 import ProductsList from "../components/Products/ProductsList"
-
-const useStyles = makeStyles((theme: Theme) => ({}))
+import Seo from "../components/seo"
+import { DatoCmsProduct } from "../types/datoCmsProduct"
+import { getSlugify } from "../helpers/getSlugify"
 
 interface IndexPageProps {
   data: {
@@ -16,15 +15,29 @@ interface IndexPageProps {
     }
   }
 }
+const filterByCategory = (product: DatoCmsProduct, category: string) => {
+  return (
+    getSlugify(product.categoryProduct[0].model.apiKey) === category ||
+    getSlugify(product.categoryProduct[0]?.subcategory || "") === category
+  )
+}
 
 const IndexPage = ({ data }: IndexPageProps) => {
   const { allDatoCmsProduct } = data
   const nodes = allDatoCmsProduct.nodes
-  const classes = useStyles()
+
+  const params = useParams()
+  const category = params.get(Params.category)
   return (
     <Layout>
       <Seo title="Produkty" />
-      <ProductsList list={nodes} />
+      <ProductsList
+        list={
+          category
+            ? nodes.filter(item => filterByCategory(item, category))
+            : nodes
+        }
+      />
     </Layout>
   )
 }
@@ -34,7 +47,6 @@ export const query = graphql`
     allDatoCmsProduct {
       nodes {
         id
-        category
         name
         price
         photos {
@@ -63,6 +75,48 @@ export const query = graphql`
               apiKey
             }
             text
+          }
+        }
+        categoryProduct {
+          ... on DatoCmsKolczyki {
+            id
+            subcategory
+            model {
+              apiKey
+            }
+          }
+          ... on DatoCmsBransoletki {
+            id
+            model {
+              apiKey
+            }
+            subcategory
+          }
+          ... on DatoCmsChusty {
+            id
+            model {
+              apiKey
+            }
+            subcategory
+          }
+          ... on DatoCmsNaszyjniki {
+            id
+            model {
+              apiKey
+            }
+          }
+          ... on DatoCmsTorebki {
+            id
+            model {
+              apiKey
+            }
+          }
+          ... on DatoCmsMaskotki {
+            id
+            subcategory
+            model {
+              apiKey
+            }
           }
         }
       }

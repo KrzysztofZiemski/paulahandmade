@@ -1,3 +1,4 @@
+import { datoCmsCategoryProduct } from "./datoCmsCategoryProduct"
 import { DatoCmsContentModular } from "./datoCmsContentModular"
 import { DatoCmsPhoto } from "./datoCmsPhoto"
 import { Tag } from "./tag"
@@ -14,7 +15,6 @@ export type ProductColor = {
 
 export interface DatoCmsProduct {
   id: string
-  category: string
   name: string
   price: number
   photos: DatoCmsPhoto[]
@@ -22,4 +22,5 @@ export interface DatoCmsProduct {
   tags: Tag[]
   shortDescription: string
   productColors: ProductColor[]
+  categoryProduct: datoCmsCategoryProduct
 }
