@@ -2,7 +2,7 @@
   "name": "paula",
   "private": true,
   "description": "",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "Krzysztof Ziemski <k.b.ziemski@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
