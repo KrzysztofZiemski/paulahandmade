@@ -132,6 +132,13 @@ export const query = graphql`
               apiKey
             }
           }
+          ... on DatoCmsInne {
+            id
+            model {
+              apiKey
+            }
+            subcategory
+          }
         }
       }
     }

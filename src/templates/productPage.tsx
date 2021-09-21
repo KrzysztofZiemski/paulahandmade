@@ -70,7 +70,7 @@ const ProductPage = ({ data }: ProductPage) => {
   }
 
   return (
-    <Layout hideNav={true}>
+    <Layout hideLeftNav={true}>
       <Seo
         title={`${name} - Paula Handmade Rękodzieło`}
         description={shortDescription}
@@ -137,6 +137,13 @@ export const query = graphql`
       }
       categoryProduct {
         ... on DatoCmsKolczyki {
+          id
+          model {
+            apiKey
+          }
+          subcategory
+        }
+        ... on DatoCmsInne {
           id
           model {
             apiKey

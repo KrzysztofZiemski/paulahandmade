@@ -8,6 +8,11 @@ export enum SubCategoryScarves{
     availableImmediately = "dostępne od ręki", 
     toOrder = "na zamówienie"
 }
+export enum SubCategoryOther{
+    handbags = "torebki", 
+    caps = "czapki",
+    remaining = "pozostałe"
+}
 export enum SubCategoryEarrings{
     tassels = "chwosty", 
     indian = "indiańce",
@@ -18,7 +23,9 @@ export enum SubCategoryMascots{
     forestAnimals = "zwierzaki leśne", 
     seaAnimals = "zwierzaki morskie",
     pets = "zwierzaki domowe",
-    occasional = "okazjonalne"
+    farm = "farma",
+    occasional = "okazjonalne",
+    dolls = "lalki"
 }
 
 export enum NameOfCategory{
@@ -27,7 +34,7 @@ export enum NameOfCategory{
     earrings_category = "kolczyki   ",
     mascots_category = "maskotki",
     necklaces_category = "naszyjniki",
-    handbags_category = "torebki",
+    other = "inne",
     all = ""
 }
 

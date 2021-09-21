@@ -48,6 +48,45 @@ const useStyles = makeStyles(theme => ({
       height: "100vh",
       top: 0,
       paddingTop: 0,
+      "&::-webkit-scrollbar": {
+        width: 3,
+      },
+      "&::-webkit-scrollbar-track": {
+        background: "#f1f1f1",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        background: "#888",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        background: "#555",
+      },
+    },
+  },
+  navCategoryTitle: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    padding: theme.spacing(1),
+    [theme.breakpoints.up("md")]: {
+      backgroundColor: theme.palette.common.white,
+      textAlign: "center",
+      padding: theme.spacing(1),
+      fontSize: 20,
+      color: theme.palette.common.black,
+      textTransform: "uppercase",
+    },
+  },
+  listItemAll: {
+    "&.MuiListItem-root": {
+      borderBottom: `8px solid ${theme.palette.primary.main} !important`,
+      backgroundColor: theme.palette.common.white,
+      textAlign: "center",
+      padding: theme.spacing(1),
+      color: theme.palette.common.black,
+      textTransform: "uppercase",
+      border: "none !important",
+      "& p": {
+        fontSize: "20px",
+      },
     },
   },
 }))
@@ -55,9 +94,11 @@ const useStyles = makeStyles(theme => ({
 const LeftAndMobileNavigation = ({
   open,
   onClose,
+  hideLeftNav,
 }: {
   open: boolean
   onClose: () => void
+  hideLeftNav: boolean
 }) => {
   const classes = useStyles()
 
@@ -81,7 +122,21 @@ const LeftAndMobileNavigation = ({
 
             <Grid>
               <MenuList>
-                {navigationList.map(el => (
+                <NavigationItem
+                  key={navigationList.all.label}
+                  item={navigationList.all}
+                  onClose={onClose}
+                />
+                <Typography className={classes.navCategoryTitle}>
+                  Biżuteria
+                </Typography>
+                {navigationList.jewelry.map(el => (
+                  <NavigationItem key={el.label} item={el} onClose={onClose} />
+                ))}
+                <Typography className={classes.navCategoryTitle}>
+                  Szydełko
+                </Typography>
+                {navigationList.crochetHook.map(el => (
                   <NavigationItem key={el.label} item={el} onClose={onClose} />
                 ))}
               </MenuList>
@@ -89,15 +144,32 @@ const LeftAndMobileNavigation = ({
           </Box>
         </Drawer>
       </Hidden>
-      <Hidden smDown implementation="css">
-        <Paper className={classes.desktopMenuPaper}>
-          <MenuList className={classes.desktopMenuList}>
-            {navigationList.map(el => (
-              <NavigationItem key={el.label} item={el} onClose={onClose} />
-            ))}
-          </MenuList>
-        </Paper>
-      </Hidden>
+      {!hideLeftNav && (
+        <Hidden smDown implementation="css">
+          <Paper className={classes.desktopMenuPaper}>
+            <MenuList className={classes.desktopMenuList}>
+              <NavigationItem
+                className={classes.listItemAll}
+                key={navigationList.all.label}
+                item={navigationList.all}
+                onClose={onClose}
+              />
+              <Typography className={classes.navCategoryTitle}>
+                Biżuteria
+              </Typography>
+              {navigationList.jewelry.map(el => (
+                <NavigationItem key={el.label} item={el} onClose={onClose} />
+              ))}
+              <Typography className={classes.navCategoryTitle}>
+                Szydełko
+              </Typography>
+              {navigationList.crochetHook.map(el => (
+                <NavigationItem key={el.label} item={el} onClose={onClose} />
+              ))}
+            </MenuList>
+          </Paper>
+        </Hidden>
+      )}
     </>
   )
 }

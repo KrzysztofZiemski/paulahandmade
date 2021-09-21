@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core"
 import FacebookIcon from "@material-ui/icons/Facebook"
 import PinterestIcon from "@material-ui/icons/Pinterest"
-
+import InstagramIcon from "@material-ui/icons/Instagram"
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: theme.palette.common.white,
@@ -59,6 +59,14 @@ const Footer = ({}: FooterProps) => {
           className={classes.link}
         >
           <FacebookIcon className={classes.icon} />
+        </Link>
+        <Link
+          color="inherit"
+          target="_blank"
+          href="https://www.instagram.com/paulaziemska_handmade/"
+          className={classes.link}
+        >
+          <InstagramIcon className={classes.icon} />
         </Link>
         <Link
           color="inherit"

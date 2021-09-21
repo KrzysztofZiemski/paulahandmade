@@ -76,9 +76,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface NavigationItemProps {
   item: NavItem
   onClose: () => void
+  className?: string
 }
 
-const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
+const NavigationItem = ({ item, onClose, className }: NavigationItemProps) => {
   const classes = useStyles()
   const location = useLocation()
   const params = useParams()
@@ -116,7 +117,7 @@ const NavigationItem = ({ item, onClose }: NavigationItemProps) => {
   return (
     <>
       <MenuItem
-        className={classes.item}
+        className={`${classes.item} ${className || ""}`}
         selected={!subCategories && categoryParams === filter}
         onClick={subCategories ? handleOpenSubMenu : () => goTo(filter)}
       >

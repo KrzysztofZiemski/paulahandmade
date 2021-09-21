@@ -24,10 +24,10 @@ const useStyles = makeStyles(theme => ({
 
 const Layout = ({
   children,
-  hideNav = false,
+  hideLeftNav = false,
 }: {
   children: React.ReactNode
-  hideNav?: boolean
+  hideLeftNav?: boolean
 }) => {
   const classes = useStyles()
   const [menuIsOpen, setMenuIsOpen] = useState(false)
@@ -39,9 +39,11 @@ const Layout = ({
       <div className={classes.root}>
         <Header onClick={handleToggleMenu} />
         <div className={classes.mainWithNav}>
-          {!hideNav && (
-            <LeftAndMobileNavigation open={menuIsOpen} onClose={closeMenu} />
-          )}
+          <LeftAndMobileNavigation
+            open={menuIsOpen}
+            onClose={closeMenu}
+            hideLeftNav={hideLeftNav}
+          />
           <MainContainer>{children}</MainContainer>
         </div>
         <Footer />
