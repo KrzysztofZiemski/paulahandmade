@@ -55,7 +55,7 @@ const ProductsList = ({ list }: { list: DatoCmsProduct[] }) => {
           <ProductItem
             key={id}
             price={price}
-            link={`produkt/${getSlugify(name)}`}
+            link={`/produkt/${getSlugify(name)}`}
             title={name}
             tags={tags}
             fluidImage={photos[0].fluid}

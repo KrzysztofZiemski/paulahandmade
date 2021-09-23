@@ -91,7 +91,7 @@ const ImageSlider: FunctionComponent<ImageSliderProps> = ({
               <img
                 src={el.fluid.src}
                 srcSet={el.fluid.srcSet}
-                alt={el.alt}
+                alt={el.alt || ""}
                 className={classes.image}
               />
             </Box>

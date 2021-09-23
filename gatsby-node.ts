@@ -1,46 +1,13 @@
-// const { useGatsbyNode } = require("gatsby-plugin-ts-config");
-
-// module.exports = useGatsbyNode(() => require("./config/gatsby-node"));
-
-// const path = require(`path`);
-// const slugify = require('slugify')
-
-// exports.createPages = async ({ graphql, actions }) => {
-//     const { createPage } = actions;
-//     const productPostTemplate = path.resolve(`src/templates/productPage.tsx`);
-
-//     const result = await graphql(`
-//       query queryCMSPage {
-//         allDatoCmsProduct{
-//           nodes{
-//             name
-//             id
-//           }
-//         }
-//       }
-//     `);
-
-//     const config={
-//       lower: true,
-//     }
-
-//     result.data.allDatoCmsProduct.nodes.forEach(product => {
-//         const slugifiedPath = `produkt/${slugify(product.name,config)}`
-//         createPage({
-//             path: slugifiedPath,
-//             component: productPostTemplate,
-//             context: {
-//                 id: product.id
-//             },
-//         });
-//     });
-// };
-
 import * as path from "path"
 import { getSlugify } from "./src/helpers/getSlugify"
+import { categoriesList } from "./src/utils/cateroriesList"
+import { PageContextFilter } from "./src/types/pageContextFilter"
 
 export const createPages = async ({ graphql, actions }) => {
-  const productPostTemplate = path.resolve(`src/templates/productPage.tsx`)
+  const productPageTemplate = path.resolve(`src/templates/productPage.tsx`)
+  const productsByCategoriesTemplate = path.resolve(
+    `src/templates/productsByCategories.tsx`
+  )
   const { createPage } = actions
   const result = await graphql(`
     query queryCMSPage {
@@ -52,12 +19,56 @@ export const createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+  categoriesList.forEach(el => {
+    let slugifiedPath = `produkty/${getSlugify(el.type)}`
+
+    const filter: PageContextFilter = {
+      type: el.type,
+      category: null,
+      subcategory: null,
+    }
+
+    //creating page by type
+    createPage({
+      path: slugifiedPath,
+      component: productsByCategoriesTemplate,
+      context: {
+        filter,
+      },
+    })
+
+    el.categories.forEach(({ subcategories, name }) => {
+      slugifiedPath = slugifiedPath + `/${getSlugify(name)}`
+      filter.category = name
+      //create page by category
+      createPage({
+        path: slugifiedPath,
+        component: productsByCategoriesTemplate,
+        context: {
+          filter,
+        },
+      })
+      subcategories.forEach(subcategory => {
+        slugifiedPath = slugifiedPath + `/${getSlugify(subcategory)}`
+        filter.subcategory = subcategory
+
+        //create page by subcategory
+        createPage({
+          path: slugifiedPath,
+          component: productsByCategoriesTemplate,
+          context: {
+            filter,
+          },
+        })
+      })
+    })
+  })
 
   result.data.allDatoCmsProduct.nodes.forEach(product => {
     const slugifiedPath = `produkt/${getSlugify(product.name)}`
     createPage({
       path: slugifiedPath,
-      component: productPostTemplate,
+      component: productPageTemplate,
       context: {
         id: product.id,
       },

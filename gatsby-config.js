@@ -3,6 +3,9 @@ require("dotenv").config()
 
 module.exports = useGatsbyConfig(
   () => ({
+    flags: {
+      DEV_SSR: false,
+    },
     siteMetadata: {
       title: ``,
       description: ``,

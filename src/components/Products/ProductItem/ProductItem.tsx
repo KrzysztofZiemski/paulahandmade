@@ -143,7 +143,7 @@ const ProductItem = ({
         <Img
           fluid={fluidImage}
           className={classes.img}
-          alt={imageAlt}
+          alt={imageAlt || ""}
           imgStyle={{ objectFit: "contain" }}
         />
       </Link>
