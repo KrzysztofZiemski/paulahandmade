@@ -6,11 +6,11 @@ import {
   SubCategoryOther,
   SubCategoryScarves,
 } from "../types/datoCmsCategoryProduct"
-import { categoryType } from "../types/category"
+import { CategoryType } from "../types/CategoryType"
 
 export const categoriesList = [
   {
-    type: categoryType.jewelry,
+    type: CategoryType.jewelry,
     categories: [
       {
         name: NameOfCategory.bracelets_category,
@@ -27,7 +27,7 @@ export const categoriesList = [
     ],
   },
   {
-    type: categoryType.crochet_hook,
+    type: CategoryType.crochet_hook,
     categories: [
       {
         name: NameOfCategory.mascots_category,

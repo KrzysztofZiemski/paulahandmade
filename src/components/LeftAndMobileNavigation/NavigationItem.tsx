@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core"
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
 import { Link } from "gatsby"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { getSlugify } from "../../helpers/getSlugify"
 import { NameOfCategory } from "../../types/datoCmsCategoryProduct"
 import CustomDivider from "./CustomDivider"

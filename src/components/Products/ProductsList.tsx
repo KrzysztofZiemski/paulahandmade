@@ -6,7 +6,6 @@ import { Tag } from "../../types/tag"
 import ProductItem from "./ProductItem/ProductItem"
 import { Filter } from "../../helpers/Filter"
 import { getSlugify } from "../../helpers/getSlugify"
-import useParams from "../../hooks/useParams"
 
 const useStyles = makeStyles((theme: Theme) => ({
   list: {

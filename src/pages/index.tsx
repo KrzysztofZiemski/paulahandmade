@@ -1,14 +1,11 @@
-import { getCategoryParam } from "../components/LeftAndMobileNavigation/helpers"
 import { graphql } from "gatsby"
-import React, { useEffect, useState } from "react"
+import React from "react"
 import Layout from "../components/layout"
+import PageName from "../components/PageName.tsx/PageName"
 import ProductsList from "../components/Products/ProductsList"
 import Seo from "../components/seo"
-import { getSlugify } from "../helpers/getSlugify"
-import useParams from "../hooks/useParams"
+import { useProductsByCategory } from "../hooks/useProductsByCategory"
 import { DatoCmsProduct } from "../types/datoCmsProduct"
-import { Params } from "../types/params"
-import PageName from "../components/PageName.tsx/PageName"
 
 interface IndexPageProps {
   data: {
@@ -18,28 +15,11 @@ interface IndexPageProps {
   }
   location: Location
 }
-const filterByCategory = (product: DatoCmsProduct, category: string) => {
-  return (
-    getSlugify(product.categoryProduct[0].model.apiKey) === category ||
-    getSlugify(product.categoryProduct[0]?.subcategory || "") === category
-  )
-}
 
 const IndexPage = ({ data }: IndexPageProps) => {
   const { allDatoCmsProduct } = data
   const nodes = allDatoCmsProduct.nodes
-  const params = useParams()
-  const [list, setList] = useState(nodes)
-
-  useEffect(() => {
-    const category = getCategoryParam(params)
-
-    const list = category
-      ? nodes.filter(item => filterByCategory(item, category))
-      : nodes
-    setList(list)
-  }, [params])
-
+  const list = useProductsByCategory(nodes)
   return (
     <Layout>
       <Seo
