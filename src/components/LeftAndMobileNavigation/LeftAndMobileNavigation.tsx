@@ -1,21 +1,17 @@
 import {
+  Box,
+  Drawer,
   Grid,
   Hidden,
-  makeStyles,
-  SwipeableDrawer,
-  Typography,
-  MenuList,
-  Box,
   IconButton,
-  Drawer,
-  Menu,
-  MenuItem,
+  makeStyles,
+  MenuList,
   Paper,
+  Typography,
 } from "@material-ui/core"
-import React from "react"
-import NavigationItem from "./NavigationItem"
-import { navigationList } from "./navigationList"
 import CloseIcon from "@material-ui/icons/Close"
+import React from "react"
+import NavigationItems from "./NavigationItems"
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -119,26 +115,9 @@ const LeftAndMobileNavigation = ({
                 <CloseIcon fontSize="large" className={classes.icon} />
               </IconButton>
             </Grid>
-
             <Grid>
               <MenuList>
-                <NavigationItem
-                  key={navigationList.all.label}
-                  item={navigationList.all}
-                  onClose={onClose}
-                />
-                <Typography className={classes.navCategoryTitle}>
-                  Biżuteria
-                </Typography>
-                {navigationList.jewelry.map(el => (
-                  <NavigationItem key={el.label} item={el} onClose={onClose} />
-                ))}
-                <Typography className={classes.navCategoryTitle}>
-                  Szydełko
-                </Typography>
-                {navigationList.crochetHook.map(el => (
-                  <NavigationItem key={el.label} item={el} onClose={onClose} />
-                ))}
+                <NavigationItems />
               </MenuList>
             </Grid>
           </Box>
@@ -148,24 +127,7 @@ const LeftAndMobileNavigation = ({
         <Hidden smDown implementation="css">
           <Paper className={classes.desktopMenuPaper}>
             <MenuList className={classes.desktopMenuList}>
-              <NavigationItem
-                className={classes.listItemAll}
-                key={navigationList.all.label}
-                item={navigationList.all}
-                onClose={onClose}
-              />
-              <Typography className={classes.navCategoryTitle}>
-                Biżuteria
-              </Typography>
-              {navigationList.jewelry.map(el => (
-                <NavigationItem key={el.label} item={el} onClose={onClose} />
-              ))}
-              <Typography className={classes.navCategoryTitle}>
-                Szydełko
-              </Typography>
-              {navigationList.crochetHook.map(el => (
-                <NavigationItem key={el.label} item={el} onClose={onClose} />
-              ))}
+              <NavigationItems />
             </MenuList>
           </Paper>
         </Hidden>

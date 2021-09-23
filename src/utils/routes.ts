@@ -2,5 +2,6 @@ export const routes = {
   root: "/",
   courses: "/courses",
   calendar: "/calendar",
-  contact:"/contact"
+  contact: "/contact",
+  products: "/products",
 }

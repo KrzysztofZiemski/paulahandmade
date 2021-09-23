@@ -1,6 +1,7 @@
 import { getCategoryParam } from "../components/LeftAndMobileNavigation/helpers"
 import { graphql } from "gatsby"
-import React, { useEffect, useState } from "react"
+import * as React from "react"
+
 import Layout from "../components/layout"
 import ProductsList from "../components/Products/ProductsList"
 import Seo from "../components/seo"
@@ -9,7 +10,7 @@ import useParams from "../hooks/useParams"
 import { DatoCmsProduct } from "../types/datoCmsProduct"
 import { Params } from "../types/params"
 import PageName from "../components/PageName.tsx/PageName"
-import { PageContextFilter } from "types/pageContextFilter"
+import { PageContextFilter } from "../types/PageContextFilter"
 
 interface IndexPageProps {
   data: {
@@ -32,16 +33,16 @@ const IndexPage = ({ data, pageContext }: IndexPageProps) => {
   const { allDatoCmsProduct } = data
   const nodes = allDatoCmsProduct.nodes
   const params = useParams()
-  const [list, setList] = useState(nodes)
-  console.log(pageContext)
-  useEffect(() => {
-    const category = getCategoryParam(params)
+  // const [list, setList] = useState(nodes)
+  // console.log(pageContext)
+  // useEffect(() => {
+  //   const category = getCategoryParam(params)
 
-    const list = category
-      ? nodes.filter(item => filterByCategory(item, category))
-      : nodes
-    setList(list)
-  }, [params])
+  //   const list = category
+  //     ? nodes.filter(item => filterByCategory(item, category))
+  //     : nodes
+  //   setList(list)
+  // }, [params])
 
   return (
     <Layout>
@@ -54,7 +55,7 @@ const IndexPage = ({ data, pageContext }: IndexPageProps) => {
         Okazjonalne prezenty zarówno ślubne jak i na chrzciny nie są mi obce."
       />
       <PageName> Oferta </PageName>
-      <ProductsList list={list} />
+      <ProductsList list={nodes} />
     </Layout>
   )
 }

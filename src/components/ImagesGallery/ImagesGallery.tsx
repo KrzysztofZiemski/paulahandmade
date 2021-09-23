@@ -57,7 +57,7 @@ const ImagesGallery: FC<ImagesGalleryProps> = ({
   const classes = useStyles()
   const [pickedImage, setPickedImage] = useState(defaultPicked)
   const [sliderIsOpen, setSliderIsOpen] = useState(false)
-  console.log("aaaaa", images[pickedImage].alt)
+  
   return (
     <div {...props}>
       <div onClick={() => setSliderIsOpen(true)}>

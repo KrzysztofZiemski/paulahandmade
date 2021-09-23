@@ -1,5 +1,6 @@
 import {
   Collapse,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -10,16 +11,12 @@ import {
   Typography,
 } from "@material-ui/core"
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
-import { useLocation } from "@reach/router"
-import { navigate } from "gatsby"
-import useParams from "../../hooks/useParams"
+import { Link } from "gatsby"
 import React, { useEffect, useState } from "react"
-
-import CustomDivider from "./CustomDivider"
-import { getCategoryParam, subMenuIsOpen } from "./helpers"
-import { Params } from "../../types/params"
-import { NavItem } from "../../types/NavItem"
 import { getSlugify } from "../../helpers/getSlugify"
+import { NameOfCategory } from "../../types/datoCmsCategoryProduct"
+import CustomDivider from "./CustomDivider"
+import { useLocation } from "@reach/router"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
@@ -65,6 +62,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   downIcon: {
     minWidth: "auto",
+    zIndex: 10000,
     [theme.breakpoints.up("md")]: {
       "& svg": {
         color: "white",
@@ -72,74 +70,73 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }))
-
-interface NavigationItemProps {
-  item: NavItem
-  onClose: () => void
-  className?: string
+type Category = {
+  name: NameOfCategory
+  subcategories: string[]
 }
 
-const NavigationItem = ({ item, onClose, className }: NavigationItemProps) => {
+interface NavigationItemProps {
+  baseUrl: string
+  category: Category
+}
+
+const NavigationItem = ({ baseUrl, category }: NavigationItemProps) => {
   const classes = useStyles()
+  const { name, subcategories } = category
   const location = useLocation()
-  const params = useParams()
-  const [isOpen, setIsOpen] = useState(
-    typeof window !== `undefined`
-      ? subMenuIsOpen({ item, param: getCategoryParam(params) || "" })
-      : false
-  )
+  const link = `${baseUrl}/${getSlugify(name)}`
 
-  const [categoryParams, setCategoryParams] = useState<null | string>(
-    getCategoryParam(params)
-  )
+  const checkIsActive = () => {
+    const matchPaths = [link]
+    subcategories.forEach(subcategory =>
+      matchPaths.push(`${link}/${getSlugify(subcategory)}`)
+    )
+    let isActive = false
 
-  useEffect(() => {
-    const categoryParams = getCategoryParam(params)
-    setCategoryParams(categoryParams)
-
-    if (!subCategories || isOpen) return
-    setIsOpen(subMenuIsOpen({ item, param: categoryParams || "" }))
-  }, [params])
-
-  const { label, filter, subCategories } = item
-
-  const handleOpenSubMenu = () => setIsOpen(prev => !prev)
-
-  const goTo = (query: string) => {
-    if (location.pathname === "/") {
-      navigate(`#?${Params.category}=${query}`)
-    } else {
-      navigate(`/?${Params.category}=${query}`)
-    }
-    onClose()
+    matchPaths.forEach(path => {
+      if (location.pathname.includes(path)) isActive = true
+    })
+    return isActive
   }
+  const [isOpen, setIsOpen] = useState(checkIsActive())
 
+  const handleSwitchOpen = () => setIsOpen(prev => !prev)
+
+  const x = () => {
+    handleSwitchOpen()
+  }
   return (
     <>
       <MenuItem
-        className={`${classes.item} ${className || ""}`}
-        selected={!subCategories && categoryParams === filter}
-        onClick={subCategories ? handleOpenSubMenu : () => goTo(filter)}
+        component={Link}
+        onClick={handleSwitchOpen}
+        to={link}
+        className={`${classes.item}`}
       >
         <ListItemText
-          primary={<Typography className={classes.title}>{label}</Typography>}
+          primary={<Typography className={classes.title}>{name}</Typography>}
         />
         <ListItemIcon className={classes.downIcon}>
-          {subCategories && <ArrowDropDownIcon color="primary" />}
+          {!!subcategories.length && (
+            <IconButton onClick={x}>
+              <ArrowDropDownIcon color="primary" />
+            </IconButton>
+          )}
         </ListItemIcon>
       </MenuItem>
-      {subCategories && (
+      {!!subcategories.length && (
         <Collapse in={isOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {subCategories.map(el => (
+            {subcategories.map(subcategory => (
               <ListItem
+                component={Link}
+                to={`${link}/${getSlugify(subcategory)}`}
                 className={classes.subMenuItem}
-                key={el}
+                key={subcategory}
                 button
-                selected={categoryParams === getSlugify(el)}
-                onClick={() => goTo(getSlugify(el))}
+                // selected={categoryParams === getSlugify(el)}
               >
-                <ListItemText primary={el} />
+                <ListItemText primary={subcategory} />
               </ListItem>
             ))}
           </List>
