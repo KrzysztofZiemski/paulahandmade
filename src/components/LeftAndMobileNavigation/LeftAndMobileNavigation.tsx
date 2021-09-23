@@ -117,7 +117,7 @@ const LeftAndMobileNavigation = ({
             </Grid>
             <Grid>
               <MenuList>
-                <NavigationItems />
+                <NavigationItems onClose={onClose} />
               </MenuList>
             </Grid>
           </Box>

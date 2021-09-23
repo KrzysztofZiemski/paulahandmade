@@ -78,9 +78,14 @@ type Category = {
 interface NavigationItemProps {
   baseUrl: string
   category: Category
+  onClose?: () => void
 }
 
-const NavigationItem = ({ baseUrl, category }: NavigationItemProps) => {
+const NavigationItem = ({
+  baseUrl,
+  category,
+  onClose,
+}: NavigationItemProps) => {
   const classes = useStyles()
   const { name, subcategories } = category
   const location = useLocation()
@@ -92,19 +97,16 @@ const NavigationItem = ({ baseUrl, category }: NavigationItemProps) => {
       matchPaths.push(`${link}/${getSlugify(subcategory)}`)
     )
     let isActive = false
-
     matchPaths.forEach(path => {
-      if (location.pathname.includes(path)) isActive = true
+      if (location.hash.includes(path)) isActive = true
     })
     return isActive
   }
+
   const [isOpen, setIsOpen] = useState(checkIsActive())
 
   const handleSwitchOpen = () => setIsOpen(prev => !prev)
 
-  const x = () => {
-    handleSwitchOpen()
-  }
   return (
     <>
       <MenuItem
@@ -117,28 +119,28 @@ const NavigationItem = ({ baseUrl, category }: NavigationItemProps) => {
           primary={<Typography className={classes.title}>{name}</Typography>}
         />
         <ListItemIcon className={classes.downIcon}>
-          {!!subcategories.length && (
-            <IconButton onClick={x}>
-              <ArrowDropDownIcon color="primary" />
-            </IconButton>
-          )}
+          {!!subcategories.length && <ArrowDropDownIcon color="primary" />}
         </ListItemIcon>
       </MenuItem>
       {!!subcategories.length && (
         <Collapse in={isOpen} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {subcategories.map(subcategory => (
-              <ListItem
-                component={Link}
-                to={`${link}/${getSlugify(subcategory)}`}
-                className={classes.subMenuItem}
-                key={subcategory}
-                button
-                // selected={categoryParams === getSlugify(el)}
-              >
-                <ListItemText primary={subcategory} />
-              </ListItem>
-            ))}
+            {subcategories.map(subcategory => {
+              const subCategoryLink = `${link}/${getSlugify(subcategory)}`
+              return (
+                <ListItem
+                  onClick={onClose}
+                  component={Link}
+                  to={`${link}/${getSlugify(subcategory)}`}
+                  className={classes.subMenuItem}
+                  key={subcategory}
+                  button
+                  selected={!!location.hash.includes(subCategoryLink)}
+                >
+                  <ListItemText primary={subcategory} />
+                </ListItem>
+              )
+            })}
           </List>
         </Collapse>
       )}

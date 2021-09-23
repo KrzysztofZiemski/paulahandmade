@@ -25,9 +25,13 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-interface NavigationItemsProps {}
+interface NavigationItemsProps {
+  onClose?: () => void
+}
 
-const NavigationItems: FunctionComponent<NavigationItemsProps> = () => {
+const NavigationItems: FunctionComponent<NavigationItemsProps> = ({
+  onClose,
+}) => {
   const classes = useStyles()
 
   return (
@@ -42,6 +46,7 @@ const NavigationItems: FunctionComponent<NavigationItemsProps> = () => {
             {categories.map(category => {
               return (
                 <NavigationItem
+                  onClose={onClose}
                   key={category.name}
                   category={category}
                   baseUrl={baseUrl}
@@ -53,16 +58,6 @@ const NavigationItems: FunctionComponent<NavigationItemsProps> = () => {
       })}
     </>
   )
-  // <>
-  //   <Typography className={classes.navType}>Biżuteria</Typography>
-  //   {navigationList.jewelry.map(el => (
-  //     <></>
-  //   ))}
-  //   <Typography className={classes.navType}>Szydełko</Typography>
-  //   {categoriesList.crochetHook.map(el => (
-  //     <></>
-  //   ))}
-  // </>
 }
 
 export default NavigationItems
