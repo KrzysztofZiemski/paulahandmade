@@ -1,8 +1,5 @@
 import * as path from "path"
 import { getSlugify } from "./src/helpers/getSlugify"
-import { categoriesList } from "./src/utils/cateroriesList"
-import { PageContextFilter } from "./src/types/pageContextFilter"
-import { routes } from "./src/utils/routes"
 
 export const createPages = async ({ graphql, actions }) => {
   const productPageTemplate = path.resolve(`src/templates/productPage.tsx`)
