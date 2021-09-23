@@ -5,6 +5,7 @@ import { FilterCategory } from "../helpers/FilterCategory"
 
 export const useProductsByCategory = (allProducts: DatoCmsProduct[]) => {
   const [list, setList] = useState<DatoCmsProduct[]>([])
+  const [name, setName] = useState("Oferta")
   const location = useLocation()
 
   useEffect(() => {
@@ -14,7 +15,8 @@ export const useProductsByCategory = (allProducts: DatoCmsProduct[]) => {
     })
     filterCategory.filter()
     setList(filterCategory.get())
+    setName(filterCategory.getName())
   }, [location.hash])
 
-  return list
+  return { list, name }
 }

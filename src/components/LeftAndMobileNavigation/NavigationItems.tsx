@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core"
+import { Divider, makeStyles } from "@material-ui/core"
 import { Link } from "gatsby"
 import { FunctionComponent } from "react"
 import { categoriesList } from "../../utils/cateroriesList"
@@ -6,6 +6,7 @@ import { routes } from "../../utils/routes"
 import NavigationItem from "./NavigationItem"
 import React from "react"
 import { getSlugify } from "../../helpers/getSlugify"
+import CustomDivider from "./CustomDivider"
 
 const useStyles = makeStyles(theme => ({
   navType: {
@@ -17,11 +18,14 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       backgroundColor: theme.palette.common.white,
       textAlign: "center",
-      padding: theme.spacing(2),
+      padding: theme.spacing(1.5),
       fontSize: 18,
       color: theme.palette.common.black,
       textTransform: "uppercase",
     },
+  },
+  driver: {
+    backgroundColor: theme.palette.primary.main,
   },
 }))
 
@@ -36,6 +40,10 @@ const NavigationItems: FunctionComponent<NavigationItemsProps> = ({
 
   return (
     <>
+      <Link className={classes.navType} to={"/"}>
+        Pokaż wszystko
+      </Link>
+      <Divider className={classes.driver} />
       {categoriesList.map(({ type, categories }) => {
         const baseUrl = `${routes.products}/${getSlugify(type)}`
         return (
@@ -43,6 +51,7 @@ const NavigationItems: FunctionComponent<NavigationItemsProps> = ({
             <Link className={classes.navType} to={baseUrl}>
               {type}
             </Link>
+
             {categories.map(category => {
               return (
                 <NavigationItem

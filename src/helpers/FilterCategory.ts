@@ -1,12 +1,21 @@
 import { List } from "@material-ui/core"
+import slugify from "slugify"
 import { CategoryType } from "../types/CategoryType"
-import { NameOfCategory } from "../types/datoCmsCategoryProduct"
+import {
+  NameOfCategory,
+  SubCategoryBraceles,
+  SubCategoryEarrings,
+  SubCategoryMascots,
+  SubCategoryOther,
+  SubCategoryScarves,
+} from "../types/datoCmsCategoryProduct"
 import { DatoCmsProduct } from "../types/datoCmsProduct"
 import { getSlugify } from "./getSlugify"
 
 export class FilterCategory {
   private list
   private routes
+  private name = ""
   constructor({
     list,
     locationHash,
@@ -16,7 +25,21 @@ export class FilterCategory {
   }) {
     this.list = list
     this.routes = locationHash.split("/").filter(el => el !== "" && el !== "#")
+    this.setName()
   }
+  getName() {
+    return this.name
+  }
+  get() {
+    return this.list
+  }
+  filter() {
+    if (this.routes.length === 0) return this.list
+    this.filterByType()
+    this.filterByCategory()
+    this.filterBySubcategory()
+  }
+
   private filterByCategory() {
     if (!this.routes[1]) return
     this.list = this.list.filter(el => {
@@ -57,13 +80,30 @@ export class FilterCategory {
       }
     })
   }
-  get() {
-    return this.list
+  private setName() {
+    if (!this.routes[0]) return (this.name = "Oferta")
+    if (this.routes[2]) {
+      const list = [
+        ...Object.values(SubCategoryBraceles),
+        ...Object.values(SubCategoryScarves),
+        ...Object.values(SubCategoryOther),
+        ...Object.values(SubCategoryEarrings),
+        ...Object.values(SubCategoryMascots),
+      ]
+      list.forEach(name => {
+        this.checkSetName(this.routes[2], name)
+      })
+    } else if (this.routes[1]) {
+      Object.values(NameOfCategory).forEach(name => {
+        this.checkSetName(this.routes[1], name)
+      })
+    } else {
+      Object.values(CategoryType).forEach(name => {
+        this.checkSetName(this.routes[0], name)
+      })
+    }
   }
-  filter() {
-    if (this.routes.length === 0) return this.list
-    this.filterByType()
-    this.filterByCategory()
-    this.filterBySubcategory()
+  private checkSetName(route: string, name: string) {
+    if (slugify(name) === route) this.name = name
   }
 }

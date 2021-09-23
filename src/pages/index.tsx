@@ -19,7 +19,7 @@ interface IndexPageProps {
 const IndexPage = ({ data }: IndexPageProps) => {
   const { allDatoCmsProduct } = data
   const nodes = allDatoCmsProduct.nodes
-  const list = useProductsByCategory(nodes)
+  const { list, name } = useProductsByCategory(nodes)
   return (
     <Layout>
       <Seo
@@ -30,7 +30,7 @@ const IndexPage = ({ data }: IndexPageProps) => {
         Sprawdź co posiadam aktualnie w ofercie, ale również specjalizuję w tworzeniu na zamówienie. 
         Okazjonalne prezenty zarówno ślubne jak i na chrzciny nie są mi obce."
       />
-      <PageName> Oferta </PageName>
+      <PageName> {name} </PageName>
       <ProductsList list={list} />
     </Layout>
   )

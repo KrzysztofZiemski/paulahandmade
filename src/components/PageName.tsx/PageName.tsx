@@ -1,4 +1,4 @@
-import React, { ReactChild } from "react"
+import React, { ReactChild, ReactNode } from "react"
 import { makeStyles, Theme, Typography } from "@material-ui/core"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -11,11 +11,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontFamily: "Lato",
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
+    "&::first-letter": {
+      textTransform: "uppercase",
+    },
   },
 }))
 
 interface PageNameProps {
-  children: ReactChild
+  children: ReactNode
 }
 const PageName = ({ children }: PageNameProps) => {
   const classes = useStyles()
