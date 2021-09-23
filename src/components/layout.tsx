@@ -2,12 +2,15 @@ import { InputAdornment, makeStyles, TextField } from "@material-ui/core"
 import PropTypes from "prop-types"
 import * as React from "react"
 import { useState } from "react"
-import "../styles/normalize.css"
+
 import Footer from "./Footer/Footer"
 import Header from "./Header/Header"
 import LeftAndMobileNavigation from "./LeftAndMobileNavigation/LeftAndMobileNavigation"
 import MainContainer from "../components/MainContainer/MainContainer"
 import Providers from "./Providers"
+
+import "../styles/fonts.css"
+import "../styles/normalize.css"
 
 const useStyles = makeStyles(theme => ({
   root: {
