@@ -63,6 +63,7 @@ const NavigationItem = ({
   const link = `${baseUrl}/${getSlugify(name)}`
 
   const checkIsActive = () => {
+    if (location.hash.replace("#", "").replaceAll("/", "") === "") return false
     const matchPaths = [link]
     subcategories.forEach(subcategory =>
       matchPaths.push(`${link}/${getSlugify(subcategory)}`)
