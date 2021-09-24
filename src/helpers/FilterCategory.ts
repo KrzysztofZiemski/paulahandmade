@@ -51,7 +51,6 @@ export class FilterCategory {
     if (!this.routes[2]) return
     this.list = this.list.filter(el => {
       const subcategory = el.categoryProduct[0].subcategory
-      console.log("subcategory", subcategory)
       if (!subcategory) return false
       return this.routes[2] === getSlugify(subcategory)
     })

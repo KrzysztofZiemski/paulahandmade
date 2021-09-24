@@ -69,7 +69,6 @@ const NavigationItem = ({
     )
     let isActive = false
     matchPaths.forEach(path => {
-      console.log(matchPaths, location.hash)
       if (path.includes(location.hash)) isActive = true
     })
     return isActive
