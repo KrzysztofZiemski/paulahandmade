@@ -11,65 +11,67 @@ import {
   Typography,
 } from "@material-ui/core"
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
-import { Link } from "gatsby"
-import React, { useState } from "react"
+
+import React, { useEffect, useState } from "react"
 import { getSlugify } from "../../helpers/getSlugify"
 import { NameOfCategory } from "../../types/datoCmsCategoryProduct"
 import CustomDivider from "./CustomDivider"
 import { useLocation } from "@reach/router"
+import Dot from "./Dot"
+import { Link } from "gatsby"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
     "&.MuiListItem-root": {
-      [theme.breakpoints.up("md")]: {
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.common.white,
-        border: `1px solid ${theme.palette.primary.main}`,
-      },
+      whiteSpace: "nowrap",
+      textTransform: "capitalize",
+      // paddingLeft: theme.spacing(3),
+      // [theme.breakpoints.up("md")]: {
+      //   backgroundColor: theme.palette.primary.main,
+      //   color: theme.palette.common.white,
+      //   border: `1px solid ${theme.palette.primary.main}`,
+      // },
     },
     "&.Mui-selected.MuiListItem-root": {
-      color: theme.palette.primary.main,
-      backgroundColor: "inherit",
-      [theme.breakpoints.up("md")]: {
-        border: `1px solid ${theme.palette.primary.main}`,
-      },
+      // color: theme.palette.primary.main,
+      // backgroundColor: "inherit",
+      // [theme.breakpoints.up("md")]: {
+      //   border: `1px solid ${theme.palette.primary.main}`,
+      // },
     },
   },
+  active: {
+    backgroundColor: "rgba(49,122,140, .1)",
+  },
   subMenuItem: {
-    "&.Mui-selected.MuiListItem-root": {
-      color: theme.palette.primary.main,
-      backgroundColor: "inherit",
-      whiteSpace: "nowrap",
-      [theme.breakpoints.up("md")]: {
-        "& span": {
-          fontWeight: 700,
-        },
-      },
-    },
     "&.MuiListItem-root": {
-      paddingLeft: theme.spacing(4),
-      [theme.breakpoints.up("md")]: {
-        color: theme.palette.primary.main,
-        backgroundColor: theme.palette.common.white,
-      },
+      whiteSpace: "nowrap",
+      paddingLeft: theme.spacing(3),
+      textTransform: "capitalize",
+      // paddingLeft: theme.spacing(4),
+      // [theme.breakpoints.up("md")]: {
+      //   color: theme.palette.primary.main,
+      //   backgroundColor: theme.palette.common.white,
+      // },
     },
   },
   title: {
-    fontWeight: 700,
-    [theme.breakpoints.up("md")]: {
-      fontWeight: 400,
-    },
+    // fontWeight: 700,
+    // [theme.breakpoints.up("md")]: {
+    //   fontWeight: 400,
+    // },
   },
   downIcon: {
     minWidth: "auto",
-    zIndex: 10000,
-    [theme.breakpoints.up("md")]: {
-      "& svg": {
-        color: "white",
-      },
-    },
+    // zIndex: 10000,
+    // [theme.breakpoints.up("md")]: {
+    //   "& svg": {
+    //     color: "white",
+    //   },
+    // },
   },
 }))
+
 type Category = {
   name: NameOfCategory
   subcategories: string[]
@@ -107,19 +109,26 @@ const NavigationItem = ({
 
   const handleSwitchOpen = () => setIsOpen(prev => !prev)
 
+  const isCategoryActive = !!location.hash
+    .replaceAll("/", "")
+    .includes(link.replaceAll("/", ""))
   return (
     <>
       <MenuItem
         component={Link}
         onClick={handleSwitchOpen}
         to={link}
-        className={`${classes.item}`}
+        className={`${classes.item} ${isCategoryActive ? classes.active : ""}`}
       >
         <ListItemText
           primary={<Typography className={classes.title}>{name}</Typography>}
         />
         <ListItemIcon className={classes.downIcon}>
-          {!!subcategories.length && <ArrowDropDownIcon color="primary" />}
+          {isCategoryActive ? (
+            <Dot />
+          ) : (
+            !!subcategories.length && <ArrowDropDownIcon color="primary" />
+          )}
         </ListItemIcon>
       </MenuItem>
       {!!subcategories.length && (
@@ -127,17 +136,26 @@ const NavigationItem = ({
           <List component="div" disablePadding>
             {subcategories.map(subcategory => {
               const subCategoryLink = `${link}/${getSlugify(subcategory)}`
+              const isActive =
+                location.hash.replaceAll("/", "") ===
+                subCategoryLink.replaceAll("/", "")
               return (
                 <ListItem
                   onClick={onClose}
                   component={Link}
-                  to={`${link}/${getSlugify(subcategory)}`}
-                  className={classes.subMenuItem}
+                  to={subCategoryLink}
+                  className={`${classes.subMenuItem} ${
+                    isActive ? classes.active : ""
+                  }`}
                   key={subcategory}
                   button
-                  selected={!!location.hash.includes(subCategoryLink)}
                 >
                   <ListItemText primary={subcategory} />
+                  {isActive && (
+                    <ListItemIcon className={classes.downIcon}>
+                      <Dot />
+                    </ListItemIcon>
+                  )}
                 </ListItem>
               )
             })}
