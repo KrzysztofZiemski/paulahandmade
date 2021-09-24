@@ -13,8 +13,6 @@ import Dot from "./Dot"
 const useStyles = makeStyles(theme => ({
   navType: {
     color: theme.palette.common.white,
-    // paddingTop: theme.spacing(1.5),
-    // paddingBottom: theme.spacing(1.5),
     paddingLeft: theme.spacing(1),
     textTransform: "capitalize",
     backgroundColor: theme.palette.primary.main,
@@ -24,9 +22,6 @@ const useStyles = makeStyles(theme => ({
     "&:hover div::after": {
       backgroundColor: theme.palette.primary.main,
     },
-  },
-  active: {
-    // backgroundColor: "rgba(49,122,140, .1)",
   },
   driver: {
     backgroundColor: theme.palette.common.white,
@@ -61,11 +56,7 @@ const NavigationItemType: FunctionComponent<NavigationItemTypeProps> = ({
 
   return (
     <>
-      <MenuItem
-        component={Link}
-        className={`${classes.navType} ${isActive ? classes.active : ""}`}
-        to={to}
-      >
+      <MenuItem component={Link} className={`${classes.navType}`} to={to}>
         <ListItemText primary={text} />
         {isActive && (
           <ListItemIcon className={classes.icon}>

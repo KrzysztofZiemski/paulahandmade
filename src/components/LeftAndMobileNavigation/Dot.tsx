@@ -1,6 +1,5 @@
+import { makeStyles } from "@material-ui/core"
 import React from "react"
-import { makeStyles, Theme } from "@material-ui/core"
-import { FunctionComponent } from "react"
 const useStyles = makeStyles(theme => ({
   root: {
     width: 24,

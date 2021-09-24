@@ -1,6 +1,5 @@
 import {
   Collapse,
-  IconButton,
   List,
   ListItem,
   ListItemIcon,
@@ -11,33 +10,20 @@ import {
   Typography,
 } from "@material-ui/core"
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown"
-
-import React, { useEffect, useState } from "react"
+import { useLocation } from "@reach/router"
+import { Link } from "gatsby"
+import React, { useState } from "react"
 import { getSlugify } from "../../helpers/getSlugify"
 import { NameOfCategory } from "../../types/datoCmsCategoryProduct"
 import CustomDivider from "./CustomDivider"
-import { useLocation } from "@reach/router"
 import Dot from "./Dot"
-import { Link } from "gatsby"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
     "&.MuiListItem-root": {
       whiteSpace: "nowrap",
       textTransform: "capitalize",
-      // paddingLeft: theme.spacing(3),
-      // [theme.breakpoints.up("md")]: {
-      //   backgroundColor: theme.palette.primary.main,
-      //   color: theme.palette.common.white,
-      //   border: `1px solid ${theme.palette.primary.main}`,
-      // },
-    },
-    "&.Mui-selected.MuiListItem-root": {
-      // color: theme.palette.primary.main,
-      // backgroundColor: "inherit",
-      // [theme.breakpoints.up("md")]: {
-      //   border: `1px solid ${theme.palette.primary.main}`,
-      // },
+      paddingLeft: theme.spacing(3),
     },
   },
   active: {
@@ -46,29 +32,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   subMenuItem: {
     "&.MuiListItem-root": {
       whiteSpace: "nowrap",
-      paddingLeft: theme.spacing(3),
+      paddingLeft: theme.spacing(5),
       textTransform: "capitalize",
-      // paddingLeft: theme.spacing(4),
-      // [theme.breakpoints.up("md")]: {
-      //   color: theme.palette.primary.main,
-      //   backgroundColor: theme.palette.common.white,
-      // },
     },
-  },
-  title: {
-    // fontWeight: 700,
-    // [theme.breakpoints.up("md")]: {
-    //   fontWeight: 400,
-    // },
   },
   downIcon: {
     minWidth: "auto",
-    // zIndex: 10000,
-    // [theme.breakpoints.up("md")]: {
-    //   "& svg": {
-    //     color: "white",
-    //   },
-    // },
   },
 }))
 
@@ -100,7 +69,8 @@ const NavigationItem = ({
     )
     let isActive = false
     matchPaths.forEach(path => {
-      if (location.hash.includes(path)) isActive = true
+      console.log(matchPaths, location.hash)
+      if (path.includes(location.hash)) isActive = true
     })
     return isActive
   }
@@ -120,9 +90,7 @@ const NavigationItem = ({
         to={link}
         className={`${classes.item} ${isCategoryActive ? classes.active : ""}`}
       >
-        <ListItemText
-          primary={<Typography className={classes.title}>{name}</Typography>}
-        />
+        <ListItemText primary={<Typography>{name}</Typography>} />
         <ListItemIcon className={classes.downIcon}>
           {isCategoryActive ? (
             <Dot />
