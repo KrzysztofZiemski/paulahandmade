@@ -27,13 +27,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: theme.spacing(1),
     marginBottom: theme.spacing(3),
     overflow: "auto",
+
     [theme.breakpoints.up("sm")]: {
-      maxWidth: "47%",
-      height: 530,
+      alignSelf: "stretch",
+      maxWidth: 350,
     },
     [theme.breakpoints.up("md")]: {
       width: "31%",
-      height: 500,
     },
   },
   actions: {
