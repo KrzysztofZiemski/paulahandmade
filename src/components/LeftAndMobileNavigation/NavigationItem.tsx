@@ -16,7 +16,7 @@ import React, { useState } from "react"
 import { getSlugify } from "../../helpers/getSlugify"
 import { NameOfCategory } from "../../types/datoCmsCategoryProduct"
 import CustomDivider from "./CustomDivider"
-import Dot from "./Dot"
+import Marker from "./Marker"
 
 const useStyles = makeStyles((theme: Theme) => ({
   item: {
@@ -62,7 +62,7 @@ const NavigationItem = ({
   const location = useLocation()
   const link = `${baseUrl}/${getSlugify(name)}`
 
-  const checkIsActive = () => {
+  const checkIsOpen = () => {
     if (location.hash.replace("#", "").replaceAll("/", "") === "") return false
     const matchPaths = [link]
     subcategories.forEach(subcategory =>
@@ -75,13 +75,13 @@ const NavigationItem = ({
     return isActive
   }
 
-  const [isOpen, setIsOpen] = useState(checkIsActive())
+  const [isOpen, setIsOpen] = useState(checkIsOpen())
 
   const handleSwitchOpen = () => setIsOpen(prev => !prev)
 
-  const isCategoryActive = !!location.hash
-    .replaceAll("/", "")
-    .includes(link.replaceAll("/", ""))
+  const isCategoryActive =
+    location.hash.replaceAll("/", "") === link.replaceAll("/", "")
+
   return (
     <>
       <MenuItem
@@ -93,7 +93,7 @@ const NavigationItem = ({
         <ListItemText primary={<Typography>{name}</Typography>} />
         <ListItemIcon className={classes.downIcon}>
           {isCategoryActive ? (
-            <Dot />
+            <Marker />
           ) : (
             !!subcategories.length && <ArrowDropDownIcon color="primary" />
           )}
@@ -121,7 +121,7 @@ const NavigationItem = ({
                   <ListItemText primary={subcategory} />
                   {isActive && (
                     <ListItemIcon className={classes.downIcon}>
-                      <Dot />
+                      <Marker />
                     </ListItemIcon>
                   )}
                 </ListItem>

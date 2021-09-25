@@ -8,7 +8,7 @@ import {
 import { useLocation } from "@reach/router"
 import { Link } from "gatsby"
 import React, { FunctionComponent } from "react"
-import Dot from "./Dot"
+import Marker from "./Marker"
 
 const useStyles = makeStyles(theme => ({
   navType: {
@@ -17,9 +17,6 @@ const useStyles = makeStyles(theme => ({
     textTransform: "capitalize",
     backgroundColor: theme.palette.primary.main,
     "&:hover": {
-      color: theme.palette.common.black,
-    },
-    "&:hover div::after": {
       backgroundColor: theme.palette.primary.main,
     },
   },
@@ -29,10 +26,8 @@ const useStyles = makeStyles(theme => ({
   icon: {
     minWidth: "auto",
   },
-  dot: {
-    "&::after": {
-      backgroundColor: theme.palette.common.white,
-    },
+  marker: {
+    color: theme.palette.common.white,
   },
 }))
 
@@ -50,9 +45,7 @@ const NavigationItemType: FunctionComponent<NavigationItemTypeProps> = ({
   const classes = useStyles()
   const location = useLocation()
 
-  const isActive = exactly
-    ? location.hash.replaceAll("/", "") === to.replaceAll("/", "")
-    : !!location.hash.replaceAll("/", "").includes(to.replaceAll("/", ""))
+  const isActive = location.hash.replaceAll("/", "") === to.replaceAll("/", "")
 
   return (
     <>
@@ -60,7 +53,7 @@ const NavigationItemType: FunctionComponent<NavigationItemTypeProps> = ({
         <ListItemText primary={text} />
         {isActive && (
           <ListItemIcon className={classes.icon}>
-            <Dot className={classes.dot} />
+            <Marker className={classes.marker} />
           </ListItemIcon>
         )}
       </MenuItem>
