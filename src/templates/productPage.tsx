@@ -68,7 +68,7 @@ const ProductPage = ({ data }: ProductPage) => {
   const handleAskAboutProduct = () => {
     navigate(`${routes.contact}#?${Params.subject}=${getSlugify(name)}`)
   }
-
+  console.log("description", data.datoCmsProduct)
   return (
     <Layout hideLeftNav={true}>
       <Seo
@@ -85,7 +85,7 @@ const ProductPage = ({ data }: ProductPage) => {
           <Hidden xsDown implementation="css">
             <PageName>{name}</PageName>
           </Hidden>
-          {description &&
+          {description?.length &&
             description.map((element, index) => {
               switch (element.model.apiKey) {
                 case DatoCmsContentModular.text_paragraph:
@@ -122,6 +122,20 @@ export const query = graphql`
       price
       name
       shortDescription
+      description {
+        ... on DatoCmsTextParagraph {
+          model {
+            apiKey
+          }
+          text
+        }
+        ... on DatoCmsTextSubheader {
+          model {
+            apiKey
+          }
+          text
+        }
+      }
       productColors {
         colorsBase
       }
